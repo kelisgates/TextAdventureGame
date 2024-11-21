@@ -13,14 +13,7 @@ import java.util.List;
  * @version Fall 2024
  */
 public class GameManager {
-	//For Testing
-	//private final String gameLocationsFileLocation = "src/edu/westga/cs3211/text_adventure_game/assets/testLocations.txt";
-	//private final String gameHazardsFileLocation = "src/edu/westga/cs3211/text_adventure_game//assets/testHazards.txt";
-	
-	//For Play
-	private final String gameLocationsFileLocation = "src/edu/westga/cs3211/text_adventure_game/assets/gameLocations.txt";
-	private final String gameHazardsFileLocation = "src/edu/westga/cs3211/text_adventure_game//assets/hazards.txt";
-	
+		
 	private final String startingLocation = "EntryRoom";
 	private final String gameOverYouLoseText = "Looks like you lost all of your health. Why am I talking. You're dead, you can't hear me.\nRelaunch the game to play again.";
 	
@@ -37,7 +30,7 @@ public class GameManager {
 	 */
 	public GameManager() {
 		this.player = new Player();
-		this.gameFiles = new FileReader(this.gameLocationsFileLocation, this.gameHazardsFileLocation);
+		this.gameFiles = new FileReader();
 		this.movementOptions = new ArrayList<Actions>();
 		
 		this.initializeGameManger();

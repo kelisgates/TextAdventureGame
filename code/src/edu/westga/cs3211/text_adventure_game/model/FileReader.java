@@ -15,39 +15,65 @@ import java.util.Scanner;
  */
 public class FileReader {
 
+	//For Testing
+	private final String gameLocationsFileLocation = "src/edu/westga/cs3211/text_adventure_game/assets/testLocations.txt";
+	private final String gameHazardsFileLocation = "src/edu/westga/cs3211/text_adventure_game//assets/testHazards.txt";
+	private final String gameNPCFileLocation = "src/edu/westga/cs3211/text_adventure_game//assets/testNPC.txt":
+	
+	//For Play
+	//private final String gameLocationsFileLocation = "src/edu/westga/cs3211/text_adventure_game/assets/gameLocations.txt";
+	//private final String gameHazardsFileLocation = "src/edu/westga/cs3211/text_adventure_game//assets/hazards.txt";
+	//private final String gameNPCFileLocation = "":
+	
 	private String gameMapFile;
 	private String hazardFile;
+	private String npcFile;
 	
 	private HashMap<String, Location> gameLocations;
 	private HashMap<String, Hazard> hazards;
+	private HashMap<String, NPC> npcs;
 	
 	/**
-	 * Constructor with the file name.
+	 * Basic FileReader constructor
+	 */
+	public FileReader() {
+		this.gameMapFile = gameLocationsFileLocation;
+		this.hazardFile = gameHazardsFileLocation;
+		this.npcFile = gameNPCFileLocation;
+		
+		this.gameLocations = new HashMap<String, Location>();
+		this.hazards = new HashMap<String, Hazard>();
+		this.npcs = new HashMap<String, NPC>();
+		
+		this.loadInGameMapFile();
+		this.loadInHazardFile();
+		this.loadInNPCFile();
+	}
+	
+	/**
+	 * Overloaded Constructor with the file name.
 	 * 
 	 * @param gameMapFile name of the game location file
 	 * @param hazardFile name of the file with hazards
 	 */
-	public FileReader(String gameMapFile, String hazardFile) {
+	public FileReader(String gameMapFile, String hazardFile, String npcFile) {
 		this.gameMapFile = gameMapFile;
 		this.hazardFile = hazardFile;
+		this.npcFile = npcFile;
 		
 		this.gameLocations = new HashMap<String, Location>();
 		this.hazards = new HashMap<String, Hazard>();
 		
 		this.loadInGameMapFile();
 		this.loadInHazardFile();
+		this.loadInNPCFile();
 	}
 	
 	private void loadInGameMapFile() {
 		int lineCounter = 0;
 		
 		String name = "";
-		String description1 = "";
-		String description2 = "";
-		String[] connectedRooms = new String[4];
-		boolean hazardFlag = false;
-		String attachedHazard = "";
-		boolean isGoal = false;
+		String description = "";
 		
 		try {
 			File loadInFile = new File(this.gameMapFile);
@@ -62,31 +88,11 @@ public class FileReader {
 					lineCounter++;
 					break;
 				case 1:
-					description1 = data;
-					lineCounter++;
-					break;
-				case 2:
-					description2 = data;
-					lineCounter++;
-					break;
-				case 3:
-					connectedRooms = data.split(",");
-					lineCounter++;
-					break;
-				case 4:
-					hazardFlag = Boolean.valueOf(data);
-					lineCounter++;
-					break;
-				case 5:
-					attachedHazard = data;
-					lineCounter++;
-					break;
-				case 6:
-					isGoal = Boolean.valueOf(data);
+					description = data;
 					lineCounter++;
 					break;
 				default:
-					Location newLocation = new Location(name, description1, description2, connectedRooms, hazardFlag, attachedHazard, isGoal);
+					Location newLocation = new Location(name, description);
 					this.gameLocations.put(newLocation.getRoomName(), newLocation);
 					lineCounter = 0;
 					break;
@@ -113,7 +119,7 @@ public class FileReader {
 			while (fileReader.hasNext()) {
 				String data = fileReader.nextLine();
 				
-				switch (lineCounter) {
+				switch (lineCounter % 3) {
 				case 0:
 					name = data;
 					lineCounter++;
@@ -125,11 +131,8 @@ public class FileReader {
 				case 2:
 					damageValue = Integer.parseInt(data);
 					lineCounter++;
-					break;
-				default:
 					Hazard newHazard = new Hazard(name, description, damageValue);
 					this.hazards.put(newHazard.getHazardName(), newHazard);
-					lineCounter = 0;
 					break;
 				}
 			}
@@ -137,6 +140,32 @@ public class FileReader {
 			fileReader.close();
 		} catch (FileNotFoundException fnfException) {
 			System.err.println("FILE NOT FOUND: HAZARDS");
+		}
+	}
+	
+	private void loadInNPCFile() {
+		int lineCounter = 0;
+		String name = "";
+		String dialog = "";
+		
+		try {
+			File loadInFile = new File(this.npcFile);
+			Scanner fileReader = new Scanner(loadInFile);
+			
+			while (fileReader.hasNext()) {
+				String data = fileReader.nextLine();
+				
+				switch (lineCounter % 2) {
+				case 0:
+					name = data;
+					break;
+				case 1:
+					dialog = data;
+					NPC newNPC = new NPC(name, dialog);
+					this.npcs.put(newNPC.getName(), newNPC);
+					break;
+				}
+			}
 		}
 	}
 	
@@ -156,5 +185,14 @@ public class FileReader {
 	 */
 	public HashMap<String, Hazard> getHazards() {
 		return this.hazards;
+	}
+	
+	/**
+	 * Gets a hashmap of available NPCs
+	 * 
+	 * @return npcs
+	 */
+	public HashMap<String, NPC> getNPCs() {
+		return this.npcs;
 	}
 }

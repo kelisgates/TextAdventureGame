@@ -1,8 +1,6 @@
 SmokeHazard
 The room quickly fills with smoke. You cannot see any details in the room.
 0
----
 DartHazard
 A dart shoots out and hits you in the neck. It stung.
 2
----

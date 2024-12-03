@@ -12,8 +12,13 @@ public enum Actions {
 	NORTH("MOVE NORTH", 0),
 	EAST("MOVE EAST", 1),
 	SOUTH("MOVE SOUTH", 2),
-	WEST("MOVE WEST", 3);
-		
+	WEST("MOVE WEST", 3),
+	ATTACK("Swing Sword", 4),
+	DEFEND("Raise Shield", 5),
+	INTERACT("Talk to: ", 6),
+	TAKE("Pick Up: ", 7),
+	DROP("Drop: ", 8);
+	
 	private String action;
 	private int indexValue;
 	

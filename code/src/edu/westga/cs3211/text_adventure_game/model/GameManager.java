@@ -14,36 +14,25 @@ import java.util.List;
  */
 public class GameManager {
 		
-	private final String startingLocation = "EntryRoom";
-	private final String gameOverYouLoseText = "Looks like you lost all of your health. Why am I talking. You're dead, you can't hear me.\nRelaunch the game to play again.";
-	
-	private FileReader gameFiles;
 	private Player player;
 	private Location playerLocation;
-	private List<Actions> movementOptions;
+	private WorldManager worldManager;
+	private List<Actions> actionOptions;
 	
 	private HashMap<String, Location> gameLocations;
-	private HashMap<String, Hazard> gameHazards;
 
 	/**
 	 * Empty GameManager constructor
 	 */
 	public GameManager() {
 		this.player = new Player();
-		this.gameFiles = new FileReader();
-		this.movementOptions = new ArrayList<Actions>();
+		this.worldManager = new WorldManager();
+		this.actionOptions = new ArrayList<Actions>();
 		
 		this.initializeGameManger();
 	}
 	
 	private void initializeGameManger() {
-		this.setGameLocationsHazards();
-	}
-	
-	private void setGameLocationsHazards()  {
-		this.gameLocations = this.gameFiles.getLocationMap();
-		this.gameHazards = this.gameFiles.getHazards();
-		
 		this.playerLocation = this.gameLocations.get(this.startingLocation);
 	}
 	
@@ -85,7 +74,7 @@ public class GameManager {
 		
 		this.playerLocation = this.gameLocations.get(connectedRoom[action.getIndexValue()]);
 
-		this.movementOptions.clear();
+		this.actionOptions.clear();
 	}
 	
 	/**
@@ -94,13 +83,31 @@ public class GameManager {
 	public void getActionList() {
 		String[] options = this.playerLocation.getConnectedRooms();
 		
-		this.movementOptions.clear();
+		this.actionOptions.clear();
 		
 		for (int index = 0; index < options.length; index++) {
 			if (!options[index].isBlank()) {
 				
-				this.movementOptions.add(Actions.getActionByIndex(index));
+				this.actionOptions.add(Actions.getActionByIndex(index));
 			}
+		}
+		
+		// Added following options from Actions enum
+		if (playerLocation.hasEnemy) {
+			this.actionOptions.add(Actions.getActionByIndex(4));
+			this.actionOptions.add(Actions.getActionByIndex(5));
+		}
+		
+		if (playerLocation.NPC > 0) {
+			this.actionOptions.add(Actions.getActionByIndex(6) + location.NPCs.getNPCName());
+		}
+		
+		for (int index = 0; index < playerLocation.items.size(); index++) {
+			this.actionsOptions.add(Actions.getActionByIndex(7) + playerLocation.items.getIndex(index).getItemName());
+		}
+		
+		for (int index = 0; index < player.playerLocation.size(); index++) {
+			this.actionOptions.add(Actions.getActionByIndex(8) + player.playerLocation.getIndex(index).getItemName());
 		}
 	}
 	
@@ -112,7 +119,7 @@ public class GameManager {
 	public List<Actions> getMovementOptions() {
 		this.getActionList();
 		
-		return this.movementOptions;
+		return this.actionOptions;
 	}
 	
 	/**

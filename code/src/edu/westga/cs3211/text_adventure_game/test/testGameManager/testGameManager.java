@@ -39,7 +39,7 @@ public class testGameManager {
 		GameManager gameManager = new GameManager();
 		Hazard hazard = new Hazard(hazardName, description, damage);
 		
-		gameManager.movePlayer(Actions.WEST);
+		gameManager.playerAction(Actions.WEST);
 		
 		assertEquals(hazard.getHazardDescription(), gameManager.getLocationDescription());
 	}
@@ -59,7 +59,7 @@ public class testGameManager {
 	
 		newPlayer.reducePlayerHitPoint(2);
 				
-		gameManager.movePlayer(Actions.EAST);
+		gameManager.playerAction(Actions.EAST);
 		
 		assertEquals("A dart shoots out and hits you in the neck. It stung.", gameManager.getLocationDescription());
 		assertEquals(newPlayer.getPlayerHitPoints(), gameManager.getPlayerHealthPoints());
@@ -73,11 +73,11 @@ public class testGameManager {
 		newPlayer.reducePlayerHitPoint(4);
 
 		assertEquals("You enter a mysterious dungeon and a stone slab shuts behind you. You face South and you see you can move East or West.", gameManager.getLocationDescription());
-		gameManager.movePlayer(Actions.EAST);
+		gameManager.playerAction(Actions.EAST);
 		assertEquals("A dart shoots out and hits you in the neck. It stung.", gameManager.getLocationDescription());
-		gameManager.movePlayer(Actions.WEST);
+		gameManager.playerAction(Actions.WEST);
 		assertEquals("You are back at the entrance. You can move East or West.", gameManager.getLocationDescription());
-		gameManager.movePlayer(Actions.EAST);
+		gameManager.playerAction(Actions.EAST);
 		assertEquals("A dart shoots out and hits you in the neck. It stung.", gameManager.getLocationDescription());
 		assertEquals(newPlayer.getPlayerHitPoints(), gameManager.getPlayerHealthPoints());
 	}
@@ -97,7 +97,7 @@ public class testGameManager {
 	public void testGameManagerGetActionListSmokeRoom() {
 		GameManager gameManager = new GameManager();
 		
-		gameManager.movePlayer(Actions.WEST);
+		gameManager.playerAction(Actions.WEST);
 		
 		ArrayList<Actions> actionList = new ArrayList<Actions>();
 		actionList.add(Actions.EAST);
@@ -109,7 +109,7 @@ public class testGameManager {
 	public void testGameManagerGetActionListDartRoom() {
 		GameManager gameManager = new GameManager();
 		
-		gameManager.movePlayer(Actions.EAST);
+		gameManager.playerAction(Actions.EAST);
 		
 		ArrayList<Actions> actionList = new ArrayList<Actions>();
 		actionList.add(Actions.SOUTH);
@@ -122,8 +122,8 @@ public class testGameManager {
 	public void testGameManagerReachGoalRoomValid() {
 		GameManager gameManager = new GameManager();
 		
-		gameManager.movePlayer(Actions.EAST);
-		gameManager.movePlayer(Actions.SOUTH);
+		gameManager.playerAction(Actions.EAST);
+		gameManager.playerAction(Actions.SOUTH);
 		
 		assertEquals("You enter a roundish room and see a cake sitting on a table in the center of the room.", gameManager.getLocationDescription());
 		assertEquals(true, gameManager.checkRoomForGoal());
@@ -133,7 +133,7 @@ public class testGameManager {
 	public void testGameManagerReachGoalRoomInvalid() {
 		GameManager gameManager = new GameManager();
 		
-		gameManager.movePlayer(Actions.WEST);
+		gameManager.playerAction(Actions.WEST);
 		
 		assertEquals(false, gameManager.checkRoomForGoal());
 	}
@@ -143,23 +143,23 @@ public class testGameManager {
 		GameManager gameManager = new GameManager();
 		String gameOverText = "Looks like you lost all of your health. Why am I talking. You're dead, you can't hear me.\nRelaunch the game to play again.";;
 		
-		gameManager.movePlayer(Actions.EAST);
+		gameManager.playerAction(Actions.EAST);
 		gameManager.getLocationDescription();
-		gameManager.movePlayer(Actions.WEST);
+		gameManager.playerAction(Actions.WEST);
 		gameManager.getLocationDescription();
-		gameManager.movePlayer(Actions.EAST);
+		gameManager.playerAction(Actions.EAST);
 		gameManager.getLocationDescription();
-		gameManager.movePlayer(Actions.WEST);
+		gameManager.playerAction(Actions.WEST);
 		gameManager.getLocationDescription();
-		gameManager.movePlayer(Actions.EAST);
+		gameManager.playerAction(Actions.EAST);
 		gameManager.getLocationDescription();
-		gameManager.movePlayer(Actions.WEST);
+		gameManager.playerAction(Actions.WEST);
 		gameManager.getLocationDescription();
-		gameManager.movePlayer(Actions.EAST);
+		gameManager.playerAction(Actions.EAST);
 		gameManager.getLocationDescription();
-		gameManager.movePlayer(Actions.WEST);
+		gameManager.playerAction(Actions.WEST);
 		gameManager.getLocationDescription();
-		gameManager.movePlayer(Actions.EAST);
+		gameManager.playerAction(Actions.EAST);
 		gameManager.getLocationDescription();
 		
 		assertEquals(0, gameManager.getPlayerHealthPoints());

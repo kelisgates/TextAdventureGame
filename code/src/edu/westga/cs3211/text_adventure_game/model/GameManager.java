@@ -69,11 +69,9 @@ public class GameManager {
 	 * 
 	 * @param action the chosen player actions for movement
 	 */
-	public void movePlayer(Actions action) {
-		String[] connectedRoom = this.playerLocation.getConnectedRooms();
+	public void playerAction(Actions action) {
+		this.worldManager.playerAction(action);
 		
-		this.playerLocation = this.gameLocations.get(connectedRoom[action.getIndexValue()]);
-
 		this.actionOptions.clear();
 	}
 	
@@ -102,9 +100,10 @@ public class GameManager {
 			this.actionOptions.add(Actions.getActionByIndex(6) + location.NPCs.getNPCName());
 		}
 		
-		for (int index = 0; index < playerLocation.items.size(); index++) {
-			this.actionsOptions.add(Actions.getActionByIndex(7) + playerLocation.items.getIndex(index).getItemName());
-		}
+//		for (int index = 0; index < playerLocation.items.size(); index++) {
+//			this.actionsOptions.add(Actions.getActionByIndex(7) + playerLocation.items.getIndex(index).getItemName());
+//		}
+		if ()
 		
 		for (int index = 0; index < player.playerLocation.size(); index++) {
 			this.actionOptions.add(Actions.getActionByIndex(8) + player.playerLocation.getIndex(index).getItemName());

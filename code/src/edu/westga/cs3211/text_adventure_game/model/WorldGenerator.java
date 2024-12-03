@@ -31,6 +31,8 @@ public class WorldGenerator {
 	
 	private void setItems() {
 		//TODO: Place items in random rooms
+		
+		
 	}
 	
 	private void setHazards() {

@@ -16,7 +16,7 @@ public enum Actions {
 	ATTACK("Swing Sword", 4),
 	DEFEND("Raise Shield", 5),
 	INTERACT("Talk to: ", 6),
-	TAKE("Pick Up: ", 7),
+	TAKE("Pick Up Items", 7),
 	DROP("Drop: ", 8);
 	
 	private String action;

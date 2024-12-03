@@ -26,7 +26,7 @@ public class ViewModel {
 	private StringProperty locationDescription;
 	private ListProperty<Actions> movementDirection;
 	private StringProperty playerHealth;
-	private ObjectProperty<Actions> selectedDirection;
+	private ObjectProperty<Actions> selectedAction;
 	private Boolean isGameOver;
 	
 	private GameManager gameManager;
@@ -38,7 +38,7 @@ public class ViewModel {
 		this.locationDescription = new SimpleStringProperty();
 		this.movementDirection = new SimpleListProperty<>(FXCollections.observableArrayList(new ArrayList<>()));
 		this.playerHealth = new SimpleStringProperty();
-		this.selectedDirection = new SimpleObjectProperty<Actions>();
+		this.selectedAction = new SimpleObjectProperty<Actions>();
 		this.isGameOver = false;
 		this.gameManager = new GameManager();
 		
@@ -47,7 +47,7 @@ public class ViewModel {
 	
 	private void setupGame() {
 		this.setLocationDescriptionProperty();
-		this.setMovementDirectionList();
+		this.setActionList();
 		this.setPlayerHealthProperty();
 	}
 	
@@ -55,23 +55,24 @@ public class ViewModel {
 	 * Moves the player
 	 */
 	public void movePlayerGetLocatinDescription() {
-		Actions selectedDirection = this.getSelectedDirection().getValue();
-		if (selectedDirection == null) {
+		Actions selectedAction = this.getSelectedAction().getValue();
+		if (selectedAction == null) {
 		    return;
 		}
 		
-		if (selectedDirection == Actions.NORTH) {
-		    this.gameManager.movePlayer(Actions.NORTH);
-		} else if (selectedDirection == Actions.EAST) {
-		    this.gameManager.movePlayer(Actions.EAST);
-		} else if (selectedDirection == Actions.SOUTH) {
-		    this.gameManager.movePlayer(Actions.SOUTH);
-		} else if (selectedDirection == Actions.WEST) {
-		    this.gameManager.movePlayer(Actions.WEST);
-		}
+		this.gameManager.playerAction(selectedAction);
+//		if (selectedDirection == Actions.NORTH) {
+//		    this.gameManager.movePlayer(Actions.NORTH);
+//		} else if (selectedDirection == Actions.EAST) {
+//		    this.gameManager.movePlayer(Actions.EAST);
+//		} else if (selectedDirection == Actions.SOUTH) {
+//		    this.gameManager.movePlayer(Actions.SOUTH);
+//		} else if (selectedDirection == Actions.WEST) {
+//		    this.gameManager.movePlayer(Actions.WEST);
+//		}
 		
 		this.setLocationDescriptionProperty();
-		this.setMovementDirectionList();
+		this.setActionList();
 		this.setPlayerHealthProperty();	
 		
 		this.checkForEndGame();
@@ -116,11 +117,11 @@ public class ViewModel {
 	 * 
 	 * @return movementDirection
 	 */
-	public ListProperty<Actions> getMovementDirectionProperty() {
+	public ListProperty<Actions> getActionProperty() {
 		return this.movementDirection;
 	}
 	
-	private void setMovementDirectionList() {
+	private void setActionList() {
 		List<Actions> options = this.gameManager.getMovementOptions();
         this.movementDirection.clear();
         this.movementDirection.setValue(FXCollections.observableArrayList(options));
@@ -144,8 +145,8 @@ public class ViewModel {
 	 * 
 	 * @return selectedDirection
 	 */
-	public ObjectProperty<Actions> getSelectedDirection() {
-		return this.selectedDirection;
+	public ObjectProperty<Actions> getSelectedAction() {
+		return this.selectedAction;
 	}
 	
 	/**
@@ -153,7 +154,7 @@ public class ViewModel {
 	 * 
 	 * @param action direction to move player
 	 */
-	public void setSelectedDirection(Actions action) {
-		this.selectedDirection.set(action);
+	public void setSelectedAction(Actions action) {
+		this.selectedAction.set(action);
 	}
 }

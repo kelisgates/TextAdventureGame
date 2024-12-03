@@ -20,6 +20,8 @@ public class WorldManager {
 	private Player player;
 	private Location playerLocation;
 	
+	private String description;
+	
 	private HashMap<String, Location> gameLocations;
 	
 	/**
@@ -30,12 +32,60 @@ public class WorldManager {
 		this.generatedWorld = new WorldGenerator();
 		this.player = new Player();
 		
+		this.description = "";
+		
 		this.initializedWorld();
 	}
 	
 	private void initializedWorld() {
 		this.generatedWorld.generateWorld();
 		this.generatedWorld.getGameLocations();
+	}
+	
+	private void playerAction(Actions action) {
+		if (action == Actions.NORTH) {
+//		    this.gameManager.movePlayer(Actions.NORTH);
+		} else if (action == Actions.EAST) {
+//		    this.gameManager.movePlayer(Actions.EAST);
+		} else if (action == Actions.SOUTH) {
+//		    this.gameManager.movePlayer(Actions.SOUTH);
+		} else if (action == Actions.WEST) {
+//		    this.gameManager.movePlayer(Actions.WEST);
+		}
+		
+		if (action == Actions.ATTACK) {
+			//Remove NPC Health
+		}
+		
+		if (action == Actions.DEFEND) {
+			//Damage to player == 0
+		}
+		
+		if (action == Actions.TAKE) {
+			for (int count = 0; count < this.playerLocation.items.size(); count++) {
+				this.player.addItem(this.playerLocation.removeItem.getIndex(count));
+			}
+		}
+	}
+	
+	private void getLocationDescription() {
+		this.description = this.playerLocation.getRoomDescription();
+	}
+	
+	private void getNPCDescrption() {
+		this.description += this.playerLocation.getNPCDescription();
+	}
+	
+	private void getHazardDescription() {
+		if (location.hazard != null) {
+			this.description += this.playerLocation.getHazardDescrption();
+		}
+	}
+	
+	private void removeNPCFromRoom() {
+		if (this.playerLocation.getNPC.getHealth  <= 0) {
+			this.playerLocation.remove(this.playerLocation.getNPC));
+		}
 	}
 	
 	private void removeItemFromRoomPlaceInPlayerInventory(Item item) {

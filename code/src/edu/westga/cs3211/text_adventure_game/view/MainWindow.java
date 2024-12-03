@@ -51,7 +51,7 @@ public class MainWindow {
     
     private void bindFields() {
     	this.textAreaMainText.textProperty().bind(this.viewModel.getLocationDescriptionProperty());
-    	this.comboBoxAvailableActions.setItems(this.viewModel.getMovementDirectionProperty());
+    	this.comboBoxAvailableActions.setItems(this.viewModel.getActionProperty());
     	this.comboBoxAvailableActions.getSelectionModel().selectFirst();
     	this.labelHealth.textProperty().bind(this.viewModel.getPlayerHealthProperty());
     	this.viewModel.getSelectedDirection().bind(this.comboBoxAvailableActions.getSelectionModel().selectedItemProperty());

@@ -5,28 +5,21 @@ package edu.westga.cs3211.text_adventure_game.model;
  * 
  * Lists all possible actions available in Text Adventure Game
  * 
- * @author Shawn Bretthauer
+ * @author Shawn Bretthauer MoriaEL
  * @version Fall 2024
  */
 public enum Actions {
-	NORTH("MOVE NORTH", 0),
-	EAST("MOVE EAST", 1),
-	SOUTH("MOVE SOUTH", 2),
-	WEST("MOVE WEST", 3),
-	ATTACK("Swing Sword", 4),
-	DEFEND("Raise Shield", 5),
-	INTERACT("Talk to: ", 6),
-	TAKE("Pick Up Items", 7),
-	DROP("Drop: ", 8);
-	
+	NORTH("Move North", 0), EAST("Move East", 1), SOUTH("Move South", 2), WEST("Move West", 3), FIGHT("Fight", 4),
+	FLEE("Flee", 5), INTERACT("Interact", 6), HEAL("Heal", 7), PICK_UP("Pick Up", 8), DROP("Drop", 9);
+
 	private String action;
 	private int indexValue;
-	
+
 	Actions(String action, int index) {
 		this.action = action;
 		this.indexValue = index;
 	}
-	
+
 	/**
 	 * Returns a single string for the action available.
 	 * 
@@ -35,7 +28,7 @@ public enum Actions {
 	public String toString() {
 		return this.action;
 	}
-	
+
 	/**
 	 * Returns the index value of the movement choice.
 	 * 
@@ -44,7 +37,7 @@ public enum Actions {
 	public int getIndexValue() {
 		return this.indexValue;
 	}
-	
+
 	/**
 	 * Returns the proper String value to the index.
 	 * 

@@ -1,5 +1,8 @@
 package edu.westga.cs3211.text_adventure_game.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Text Adventure Game - Location Class
  * 
@@ -15,32 +18,34 @@ public class Location {
 	private String roomDescription1;
 	private String roomDescription2;
 	private String[] connectedRooms;
-	private Boolean hasHazard;
-	private String hazardName;
 	private Boolean isGoal;
-	
+	private List<Item> items;
+	private List<NPC> npcs;
+	private Hazard hazard;
+
 	/**
-	 * Standard constructor for room with needed attributes
+	 * Constructor for room with needed attributes
 	 * 
-	 * @param name the name of the room which will be used a the key in a hashmap
-	 * @param description1 the initial description of the room when the player first enters
-	 * @param description2 the description of the room if the player has already been prior
-	 * @param connectedRooms String array of connected rooms
-	 * @param hasHazard does the room have a hazard
-	 * @param hazardName the hazard attached to the room used a key
-	 * @param goalStatus says if the room is the goal or not
+	 * @param name           the name of the room
+	 * @param description1   the initial description
+	 * @param description2   the subsequent description
+	 * @param connectedRooms array of connected rooms
+	 * @param hazard         hazard in the room (can be null)
+	 * @param isGoal         whether this room is the goal
 	 */
-	public Location(String name, String description1, String description2, String[] connectedRooms, Boolean hasHazard, String hazardName, Boolean goalStatus) {
+	public Location(String name, String description1, String description2, String[] connectedRooms, Hazard hazard,
+			boolean isGoal) {
 		this.roomName = name;
 		this.firstTimeEntry = true;
 		this.roomDescription1 = description1;
 		this.roomDescription2 = description2;
 		this.connectedRooms = connectedRooms;
-		this.hasHazard = hasHazard;
-		this.hazardName = hazardName;
-		this.isGoal = goalStatus;
+		this.hazard = hazard;
+		this.isGoal = isGoal;
+		this.items = new ArrayList<Item>();
+		this.npcs = new ArrayList<NPC>();
 	}
-	
+
 	/**
 	 * Gets the name of the room to use as a key
 	 * 
@@ -49,11 +54,13 @@ public class Location {
 	public String getRoomName() {
 		return this.roomName;
 	}
-	
+
 	/**
-	 * Returns the appropriate room description based on if the room has initially or returned
+	 * Returns the appropriate room description based on if the room has initially
+	 * or returned
 	 * 
-	 * @return description1 if firstTimeEntry == true, description2 if firstTimeEntry == false
+	 * @return description1 if firstTimeEntry == true, description2 if
+	 *         firstTimeEntry == false
 	 */
 	public String getRoomDescription() {
 		if (this.firstTimeEntry) {
@@ -62,7 +69,7 @@ public class Location {
 		}
 		return this.roomDescription2;
 	}
-	
+
 	/**
 	 * Returns the String array of connected rooms.
 	 * 
@@ -71,36 +78,88 @@ public class Location {
 	public String[] getConnectedRooms() {
 		return this.connectedRooms;
 	}
-	
+
 	/**
-	 * Checks to see if the room does or does not have a hazard attached.
+	 * Checks if the room has a hazard.
 	 * 
-	 * @return true if hazard, otherwise false
+	 * @return true if hazard is present
 	 */
-	public Boolean getHazardCheck() {
-		return this.hasHazard;
+	public boolean hasHazard() {
+		return this.hazard != null;
 	}
-	
+
 	/**
-	 * Gets the description of the hazard if one is there. If no hazard is in the room
-	 * then a default message will be sent back.
-	 *  
-	 * @return getHazardName if hasHazard is true, otherwise default description
+	 * Gets the hazard in the room.
+	 * 
+	 * @return hazard
 	 */
-	public String getHazardName() {
-		if (this.hasHazard) {
-			return this.hazardName;
-		}
-		return null;
+	public Hazard getHazard() {
+		return this.hazard;
 	}
-	
+
 	/**
-	 * Returns if the room is the goal room.
+	 * Checks if the room is the goal room.
 	 * 
 	 * @return true if room is goal
 	 */
-	public boolean getIsGoal() {
+	public boolean isGoal() {
 		return this.isGoal;
 	}
-	
+
+	/**
+	 * Gets the items in the room.
+	 * 
+	 * @return items
+	 */
+	public List<Item> getItems() {
+		return this.items;
+	}
+
+	/**
+	 * Adds an item to the room.
+	 * 
+	 * @param item to add
+	 */
+	public void addItem(Item item) {
+		this.items.add(item);
+	}
+
+	/**
+	 * Removes an item from the room.
+	 * 
+	 * @param item to remove
+	 * @return true if item was removed
+	 */
+	public boolean removeItem(Item item) {
+		return this.items.remove(item);
+	}
+
+	/**
+	 * Gets the NPCs in the room.
+	 * 
+	 * @return npcs
+	 */
+	public List<NPC> getNpcs() {
+		return this.npcs;
+	}
+
+	/**
+	 * Adds an NPC to the room.
+	 * 
+	 * @param npc to add
+	 */
+	public void addNpc(NPC npc) {
+		this.npcs.add(npc);
+	}
+
+	/**
+	 * Removes an NPC from the room.
+	 * 
+	 * @param npc to remove
+	 * @return true if npc was removed
+	 */
+	public boolean removeNpc(NPC npc) {
+		return this.npcs.remove(npc);
+	}
+
 }

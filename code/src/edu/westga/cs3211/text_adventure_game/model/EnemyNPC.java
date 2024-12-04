@@ -1,14 +1,12 @@
 package edu.westga.cs3211.text_adventure_game.model;
 
 /**Handles enemy NPC logic
- * @author kg00281
+ * @author kg00281 and MoriaEL
  * @version Fall 2024
  */
 public class EnemyNPC extends NPC {
 
-	private String item;
-	
-	private int health;
+	private Item itemDrop;
 	
 	private int attackDamage;
 	
@@ -21,12 +19,11 @@ public class EnemyNPC extends NPC {
 	 * @param description description of NPC
 	 * @param dialogue dialogue of NPC
 	 */
-	public EnemyNPC(String name, String description, String dialogue) {
+	public EnemyNPC(String name, String description, String dialogue, int attackDamage, Item itemDrop) {
 		super(name, description, dialogue);
 		
-		this.health = 10;
-		this.attackDamage = 2;
-		this.setItem(null);
+		this.attackDamage = attackDamage;
+        this.itemDrop = itemDrop;
 	}
 
 	/**gets item of npc
@@ -36,42 +33,11 @@ public class EnemyNPC extends NPC {
 	 * 
 	 * @return item of npc
 	 */
-	public String getItem() {
-		return this.item;
-	}
-
-	/**sets item of npc
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @param item item of npc
-	 */
-	public void setItem(String item) {
-		this.item = item;
+	public Item getItemDrop() {
+		return this.itemDrop;
 	}
 	
-	/**gets health of npc
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return name of npc
-	 */
-	public int getHealth() {
-		return this.health;
-	}
 	
-	/**sets health of npc
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @param health health of npc
-	 */
-	public void setHealth(int health) {
-		this.health = health;
-	}
 	
 	/**gets attack damage power of npc
 	 * 

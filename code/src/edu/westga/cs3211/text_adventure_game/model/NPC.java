@@ -17,7 +17,7 @@ public abstract class NPC {
 	/**
 	 * Creates NPC
 	 * 
-	 * @precondition none
+	 * @precondition name, description, and dialogue != .isEmpty() 
 	 * @postcondition none
 	 * 
 	 * @param name        name of NPC
@@ -25,6 +25,19 @@ public abstract class NPC {
 	 * @param dialogue    dialogue of NPC
 	 */
 	public NPC(String name, String description, String dialogue) {
+		
+		if (name.isEmpty()) {
+			throw new IllegalArgumentException("name cannot be empty.");
+		}
+		
+		if (description.isEmpty()) {
+			throw new IllegalArgumentException("description cannot be empty.");
+		}
+		
+		if (dialogue.isEmpty()) {
+			throw new IllegalArgumentException("dialogue cannot be empty.");
+		}
+		
 		this.name = name;
 		this.description = description;
 		this.dialogue = dialogue;

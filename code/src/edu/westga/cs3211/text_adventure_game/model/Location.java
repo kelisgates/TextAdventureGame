@@ -69,6 +69,16 @@ public class Location {
 		}
 		return this.roomDescription2;
 	}
+	
+	/**
+     * Sets the array of connected rooms.
+     * 
+     * @param connectedRooms array of connected room names
+     */
+    public void setConnectedRooms(String[] connectedRooms) {
+        this.connectedRooms = connectedRooms;
+    }
+
 
 	/**
 	 * Returns the String array of connected rooms.

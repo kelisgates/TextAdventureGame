@@ -32,5 +32,11 @@
             <Font size="30.0" />
          </font>
       </Label>
+      <ImageView fx:id="AngelWingImage" fitHeight="61.0" fitWidth="62.0" layoutX="480.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="BlueGemImage" fitHeight="61.0" fitWidth="62.0" layoutX="572.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="RedGemImage" fitHeight="61.0" fitWidth="62.0" layoutX="480.0" layoutY="259.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="GreenGemImage" fitHeight="61.0" fitWidth="62.0" layoutX="559.0" layoutY="259.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="WhiteGemImage" fitHeight="61.0" fitWidth="62.0" layoutX="480.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="Key" fitHeight="61.0" fitWidth="62.0" layoutX="559.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

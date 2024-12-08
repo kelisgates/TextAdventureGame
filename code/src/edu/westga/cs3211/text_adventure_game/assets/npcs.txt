@@ -12,7 +12,6 @@ Enemy
 Dragon
 A fearsome dragon with scales like armor.
 The dragon roars and prepares to attack!
-15
 7
 AngelWings
 
@@ -20,7 +19,6 @@ Enemy
 Wolf
 A snarling wolf with sharp teeth.
 The wolf growls menacingly.
-10
 4
 WhiteGem
 
@@ -28,6 +26,5 @@ Enemy
 Goblin
 A sneaky goblin with a wicked grin.
 The goblin laughs and charges!
-8
 3
 GreenGem

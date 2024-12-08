@@ -15,6 +15,7 @@ public class Player {
 	private int lives;
     private int health;
     private Inventory inventory;
+    private boolean givenQuest; 
 
     /**
      * Constructor for a new Player object
@@ -23,6 +24,7 @@ public class Player {
         this.lives = PLAYERSLIVES;
         this.health = PLAYERSHEALTH;
         this.inventory = new Inventory();
+        this.givenQuest = false;
     }
 
     /**
@@ -94,5 +96,23 @@ public class Player {
      */
     public boolean hasLives() {
         return this.lives > 0;
+    }
+    
+    /**
+     * Checks if the player has given the quest.
+     * 
+     * @return true if quest given, else false
+     */
+    public boolean hasGivenQuest() {
+        return this.givenQuest;
+    }
+    
+    /**
+     * Sets the quest as given.
+     * 
+     * @param givenQuest true if quest has been given
+     */
+    public void setGivenQuest(boolean givenQuest) {
+        this.givenQuest = givenQuest;
     }
 }

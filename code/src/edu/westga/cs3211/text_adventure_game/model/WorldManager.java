@@ -16,38 +16,37 @@ public class WorldManager {
 	private FileReader gameFiles;
 
 	/**
-     * World Manager constructor.
-     * 
-     * @param gameFiles the FileReader instance containing game data
-     */
-    public WorldManager(FileReader gameFiles) {
-        this.gameFiles = gameFiles;
-        this.worldGenerator = new WorldGenerator(gameFiles);
-    }
+	 * World Manager constructor.
+	 * 
+	 * @param gameFiles the FileReader instance containing game data
+	 */
+	public WorldManager(FileReader gameFiles) {
+		this.gameFiles = gameFiles;
+		this.worldGenerator = new WorldGenerator(gameFiles);
+	}
 
 	/**
-     * Retrieves the starting location.
-     * 
-     * @return starting Location
-     */
-    public Location getStartingLocation() {
-        return this.worldGenerator.getStartingLocation();
-    }
+	 * Retrieves the starting location.
+	 * 
+	 * @return starting Location
+	 */
+	public Location getStartingLocation() {
+		return this.worldGenerator.getStartingLocation();
+	}
 
-    /**
-     * Shuffles the world layout.
-     */
-    public void shuffleWorld() {
-        this.worldGenerator.generateWorld();
-    }
+	/**
+	 * Shuffles the world layout.
+	 */
+	public void shuffleWorld() {
+		this.worldGenerator.generateWorld();
+	}
 
-    /**
-     * Retrieves all game locations.
-     * 
-     * @return gameLocations
-     */
-    public HashMap<String, Location> getGameLocations() {
-        return this.worldGenerator.getGameLocations();
-    }
-}
+	/**
+	 * Retrieves all game locations.
+	 * 
+	 * @return gameLocations
+	 */
+	public HashMap<String, Location> getGameLocations() {
+		return this.worldGenerator.getGameLocations();
+	}
 }

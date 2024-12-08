@@ -69,16 +69,15 @@ public class Location {
 		}
 		return this.roomDescription2;
 	}
-	
-	/**
-     * Sets the array of connected rooms.
-     * 
-     * @param connectedRooms array of connected room names
-     */
-    public void setConnectedRooms(String[] connectedRooms) {
-        this.connectedRooms = connectedRooms;
-    }
 
+	/**
+	 * Sets the array of connected rooms.
+	 * 
+	 * @param connectedRooms array of connected room names
+	 */
+	public void setConnectedRooms(String[] connectedRooms) {
+		this.connectedRooms = connectedRooms;
+	}
 
 	/**
 	 * Returns the String array of connected rooms.
@@ -170,6 +169,21 @@ public class Location {
 	 */
 	public boolean removeNpc(NPC npc) {
 		return this.npcs.remove(npc);
+	}
+
+	/**
+	 * Retrieves an item from the room by its name.
+	 * 
+	 * @param itemName the name of the item to retrieve
+	 * @return the Item object if found, otherwise null
+	 */
+	public Item getItem(String itemName) {
+		for (Item item : this.items) {
+			if (item.getItemName().equalsIgnoreCase(itemName)) {
+				return item;
+			}
+		}
+		return null;
 	}
 
 }

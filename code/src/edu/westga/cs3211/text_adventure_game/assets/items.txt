@@ -16,5 +16,5 @@ A pure white gemstone.
 AngelWings
 Beautiful wings that belong to the angel.
 
-BlackKey
+Key
 A mysterious black key that opens the goal room.

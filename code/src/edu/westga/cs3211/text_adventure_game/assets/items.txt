@@ -1,0 +1,20 @@
+Sword
+A sharp sword ideal for combat.
+
+RedGem
+A glowing red gemstone.
+
+GreenGem
+A shimmering green gemstone.
+
+BlueGem
+A radiant blue gemstone.
+
+WhiteGem
+A pure white gemstone.
+
+AngelWings
+Beautiful wings that belong to the angel.
+
+BlackKey
+A mysterious black key that opens the goal room.

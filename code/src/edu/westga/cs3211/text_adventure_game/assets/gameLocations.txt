@@ -1,104 +1,71 @@
 EntryRoom
-You enter the dungeon. An iron gate slides down and blocks your way back.
-You see the iron gate still blocks your path out.
-Hall01,Hall03,Room02,
+You are in the hallway. It's dimly lit and eerie.
+You are back in the hallway.
+AngelRoom,WeaponRoom,HealingRoom,WolfRoom
+false
+none
 false
 
+AngelRoom
+You enter a serene room bathed in light. An angel stands before you.
+The angel awaits your return.
+,DragonRoom,,EntryRoom
 false
----
-Hall01
-You hit a T junction. A room to the West and a tight hall to the East.
-You are back at the T junction.
-,Hall02,EntryRoom,Room01
+none
 false
 
-false
----
-Room01
-You enter the room and see a table with a few chairs around it. Decaying food covered in flies.
-The room is still a mess of rotten food.
-,Hall01,,
+DragonRoom
+You enter the dragon's lair. The dragon eyes you warily.
+The dragon is still here, guarding something.
+HiddenRoom,,,AngelRoom
 true
-GasHazard
-false
----
-Hall02
-The hall is a tight fit and you hit a dead end.
-You hit the dead end again.
-,,,Hall01
+DragonHazard
 false
 
+HiddenRoom
+A secret room revealed after collecting all gems.
+You are back in the hidden room.
+GoalRoom,,,DragonRoom
 false
----
-Room02
-You enter to see a room full of waste high piles of soiled laundry. A myriad of colors staining from messes caused by sickening acts.
-You enter the laundry room again. You remember you should do some laundry.
-EntryRoom,,,Room03
+none
+false
+
+HealingRoom
+A soothing aura fills the room. A healer stands ready to aid you.
+The healer smiles at you.
+EntryRoom,,,
+false
+none
+false
+
+WeaponRoom
+An old armory with weapons scattered about.
+You are back in the weapon room.
+,GoblinRoom,EntryRoom,
+false
+none
+false
+
+WolfRoom
+A wolf snarls at you from the shadows.
+The wolf's body lies still.
+EntryRoom,,,
 true
-DartHazard
-false
----
-Room03
-You go down a narrow hall and enter a dark room full of candles not really illuminating anything. You think you see pentagrams on the walls.
-You go back to the "Hell Room".
-,Room02,,
+WolfHazard
 false
 
-false
----
-Hall03
-You come to a four-way intersection. You're not sure which way to go.
-Back at the four-way intersection.
-Room04,Room05,Room07,EntryRoom
-false
-
-false
----
-Room04
-You see it's simply a storage area.
-Back at the storage room.
-,,Hall03,
-false
-
-false
----
-Room05
-You see a water feature in the center of the small room.
-You know the floor is wet.
-Room06,,,Hall03
+GoblinRoom
+A goblin blocks your path, brandishing a crude weapon.
+The goblin is defeated.
+,,WeaponRoom,
 true
-SlipHazard
-false
----
-Room06
-You see a destroyed bed, a dressed smashed in half, and a small fire in the corner.
-You arrive back to the destroyed bedroom.
-,,Room05,
-true
-ArrowHazard
-false
----
-Room07
-You enter the library. So many books that were once neatly organized lay strewn all over the floor or bookshelves.
-Back to the library.
-Hall03,Room09,Room08,
-true
-DartHazard
-false
----
-Room08
-You open the closet and see nothing of value.
-You look in the closet again. Nothing.
-Room07,,,
+GoblinHazard
 false
 
+GoalRoom
+The final room. A grand door stands before you.
+You are back in the goal room.
+HiddenRoom,,,
 false
----
-Room09
-You enter a hidden room and see what you were looking for. An iron key. To be continued...
-You enter a hidden room and see what you were looking for. An iron key. To be continued...
-Room07,,,
-false
-
+none
 true
----

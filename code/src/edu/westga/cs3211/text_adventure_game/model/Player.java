@@ -10,7 +10,9 @@ package edu.westga.cs3211.text_adventure_game.model;
  */
 public class Player {
 
-    private int lives;
+    private static final int PLAYERSHEALTH = 10;
+	private static final int PLAYERSLIVES = 3;
+	private int lives;
     private int health;
     private Inventory inventory;
 
@@ -18,8 +20,8 @@ public class Player {
      * Constructor for a new Player object
      */
     public Player() {
-        this.lives = 3;
-        this.health = 10;
+        this.lives = PLAYERSLIVES;
+        this.health = PLAYERSHEALTH;
         this.inventory = new Inventory();
     }
 
@@ -57,7 +59,7 @@ public class Player {
      * Resets the player's health to full.
      */
     public void resetHealth() {
-        this.health = 10;
+        this.health = PLAYERSHEALTH;
     }
 
     /**

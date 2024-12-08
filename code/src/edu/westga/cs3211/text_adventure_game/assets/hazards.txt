@@ -1,20 +1,11 @@
-SmokeHazard
-The room quickly fills with smoke. You cannot see any details in the room.
-0
----
-DartHazard
-A dart shoots out and hits you in the neck. It stung.
-2
----
-GasHazard
-You feel woozy from something that smells like rotten eggs.
-1
----
-ArrowHazard
-You are shot by an arrow to the chest.
-8
----
-SlipHazard
-You slip across the room on a near frictionless floor.
-0
----
+DragonHazard
+The dragon breathes fire towards you!
+7
+
+WolfHazard
+The wolf lunges at you with sharp teeth!
+4
+
+GoblinHazard
+The goblin swings its weapon at you!
+3

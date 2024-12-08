@@ -10,21 +10,21 @@ public class EnemyNPC extends NPC {
 	
 	private int attackDamage;
 	
-	/**Creates enemy NPC
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @param name name of NPC
-	 * @param description description of NPC
-	 * @param dialogue dialogue of NPC
-	 */
-	public EnemyNPC(String name, String description, String dialogue, int attackDamage, Item itemDrop) {
-		super(name, description, dialogue);
-		
-		this.attackDamage = attackDamage;
+	/**
+     * Creates enemy NPC
+     * 
+     * @param name        name of NPC
+     * @param description description of NPC
+     * @param dialogue    dialogue of NPC
+     * @param attackDamage attack damage of the NPC
+     * @param itemDrop    item dropped upon defeat
+     */
+    public EnemyNPC(String name, String description, String dialogue, int attackDamage, Item itemDrop) {
+        super(name, description, dialogue);
+        this.attackDamage = attackDamage;
         this.itemDrop = itemDrop;
-	}
+    }
+
 
 	/**gets item of npc
 	 * 

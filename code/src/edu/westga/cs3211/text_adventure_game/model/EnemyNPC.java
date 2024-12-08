@@ -15,6 +15,10 @@ public class EnemyNPC extends NPC {
 	/**
 	 * Creates enemy NPC
 	 * 
+	 *  @precondition attackDamage > 0 and itemDrop != null
+	 * @postcondition none
+	 * 
+	 * 
 	 * @param name         name of NPC
 	 * @param description  description of NPC
 	 * @param dialogue     dialogue of NPC
@@ -23,6 +27,15 @@ public class EnemyNPC extends NPC {
 	 */
 	public EnemyNPC(String name, String description, String dialogue, int attackDamage, Item itemDrop) {
 		super(name, description, dialogue);
+		
+		if (attackDamage <= 0) {
+			throw new IllegalArgumentException("damage must be above 0.");
+		}
+		
+		if (itemDrop == null) {
+			throw new NullPointerException("item can not be null.");
+		}
+		
 		this.attackDamage = attackDamage;
 		this.itemDrop = itemDrop;
 	}

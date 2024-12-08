@@ -75,9 +75,10 @@ public class MainWindow {
 	void initialize() {
 		FileReader fileReader = new FileReader("src/edu/westga/cs3211/text_adventure_game/assets/gameLocations.txt",
 				"src/edu/westga/cs3211/text_adventure_game/assets/hazards.txt",
-				"src/edu/westga/cs3211/text_adventure_game/assets/npc.txt",
+				"src/edu/westga/cs3211/text_adventure_game/assets/npcs.txt",
 				"src/edu/westga/cs3211/text_adventure_game/assets/items.txt");
 
+		fileReader.loadAllData();
 		GameManager gameManager = new GameManager(fileReader);
 
 		this.viewModel = new ViewModel(gameManager);

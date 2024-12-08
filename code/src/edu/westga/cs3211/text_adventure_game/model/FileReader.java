@@ -72,9 +72,12 @@ public class FileReader {
 	private void loadHazards() {
 		try (Scanner scanner = new Scanner(new File(this.hazardFile))) {
 			while (scanner.hasNextLine()) {
-				String name = scanner.nextLine();
-				String description = scanner.nextLine();
-				int damage = Integer.parseInt(scanner.nextLine());
+				String name = scanner.nextLine().trim();
+				 if (name.isEmpty()) {
+		                continue;
+		            }
+				String description = scanner.nextLine().trim();
+				int damage = Integer.parseInt(scanner.nextLine().trim());
 				Hazard hazard = new Hazard(name, description, damage);
 				this.hazards.put(name, hazard);
 			}
@@ -110,7 +113,11 @@ public class FileReader {
 	private void loadLocations() {
 		try (Scanner scanner = new Scanner(new File(this.gameMapFile))) {
 			while (scanner.hasNextLine()) {
-				String name = scanner.nextLine();
+				String name = scanner.nextLine().trim();
+				if(name.isEmpty()) {
+					continue;
+				}
+				
 				String description1 = scanner.nextLine();
 				String description2 = scanner.nextLine();
 				String[] connectedRooms = scanner.nextLine().split(",");
@@ -128,6 +135,10 @@ public class FileReader {
 				this.addNpcToLocation(name, location);
 
 				this.addGemToLocation(name, location);
+				
+				 if (name.equals("GoalRoom")) {
+		                location.addItem(this.items.get("Key"));
+		            }
 
 				this.gameLocations.put(name, location);
 			}

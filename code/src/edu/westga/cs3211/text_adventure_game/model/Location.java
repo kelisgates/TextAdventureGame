@@ -100,6 +100,7 @@ public class Location {
 	/**
 	 * Gets the hazard in the room.
 	 * 
+	 * 
 	 * @return hazard
 	 */
 	public Hazard getHazard() {

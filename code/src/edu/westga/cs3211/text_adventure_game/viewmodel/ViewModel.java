@@ -151,7 +151,7 @@ public class ViewModel {
 		this.angelWingsVisible.set(this.gameManager.getPlayer().getInventory().getItem("AngelWings") != null);
 		this.blueGemVisible.set(this.gameManager.getPlayer().getInventory().getItem("BlueGem") != null);
 		this.greenGemVisible.set(this.gameManager.getPlayer().getInventory().getItem("GreenGem") != null);
-		this.keyVisible.set(this.gameManager.getPlayer().getInventory().getItem("BlackKey") != null);
+		this.keyVisible.set(this.gameManager.getPlayer().getInventory().getItem("Key") != null);
 		this.whiteGemVisible.set(this.gameManager.getPlayer().getInventory().getItem("WhiteGem") != null);
 		this.redGemVisible.set(this.gameManager.getPlayer().getInventory().getItem("RedGem") != null);
 		this.swordVisible.set(this.gameManager.getPlayer().getInventory().getItem("Sword") != null);

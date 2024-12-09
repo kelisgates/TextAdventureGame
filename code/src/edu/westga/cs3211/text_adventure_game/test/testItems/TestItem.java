@@ -14,7 +14,7 @@ import edu.westga.cs3211.text_adventure_game.model.Item;
 import edu.westga.cs3211.text_adventure_game.model.Location;
 import edu.westga.cs3211.text_adventure_game.model.NPC;
 
-public class TestItemLoading {
+public class TestItem {
 
 	private static HashMap<String, Item> gameItems;
 	
@@ -27,6 +27,16 @@ public class TestItemLoading {
 		
 		testRead.loadAllData();
 		gameItems = testRead.getItems();
+	}
+	
+	@Test
+	public void testItemConstructorValid() {
+		String name = "WhiteGem";
+		String description = "A pure white gemstone.";
+		Item item = new Item(name, description);
+		
+		assertEquals(name, item.getItemName());
+		assertEquals(description, item.getDescription());
 	}
 	
 	@Test

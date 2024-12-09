@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import edu.westga.cs3211.text_adventure_game.model.FriendlyNPC;
 
-class TestConstructor {
+class TestFriendlyNPC {
 
 	@Test
 	void testFriendlyNPC() {

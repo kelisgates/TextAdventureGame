@@ -8,7 +8,7 @@ import edu.westga.cs3211.text_adventure_game.model.EnemyNPC;
 import edu.westga.cs3211.text_adventure_game.model.FriendlyNPC;
 import edu.westga.cs3211.text_adventure_game.model.Item;
 
-class TestConstructor {
+class TestEnemyNPC {
 
 	@Test
 	void testEnemyNPC() {

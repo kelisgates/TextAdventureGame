@@ -69,4 +69,16 @@ public class Inventory {
 	public List<Item> getItems() {
 		return this.items;
 	}
+	
+	/**
+	 * Gets the size of the player's inventory
+	 * 
+	 * @precodiction none
+	 * @postcondition none
+	 * 
+	 * @return items.size
+	 */
+	public int getSize() {
+		return this.items.size();
+	}
 }

@@ -10,7 +10,7 @@ Center left hallway.
 Center left hallway. 2
 TopLeft,EntryRoom,BottomLeft,
 none
-false
+true
 
 CenterRight
 Center right hallway.

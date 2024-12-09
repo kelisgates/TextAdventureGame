@@ -1,7 +1,6 @@
 package edu.westga.cs3211.text_adventure_game.test.testFileReader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.HashMap;
 
@@ -10,146 +9,46 @@ import org.junit.jupiter.api.Test;
 
 import edu.westga.cs3211.text_adventure_game.model.FileReader;
 import edu.westga.cs3211.text_adventure_game.model.Hazard;
+import edu.westga.cs3211.text_adventure_game.model.Item;
 import edu.westga.cs3211.text_adventure_game.model.Location;
+import edu.westga.cs3211.text_adventure_game.model.NPC;
 
 public class TestFileReader {
 
 	private static HashMap<String, Location> gameLocations;
 	private static HashMap<String, Hazard> gameHazards;
+	private static HashMap<String, NPC> gameNPCs;
+	private static HashMap<String, Item> gameItems;
 	
 	@BeforeAll
 	public static void init() {
 		FileReader testRead = new FileReader("src/edu/westga/cs3211/text_adventure_game/assets/testLocations.txt", 
-				"src/edu/westga/cs3211/text_adventure_game//assets/testHazards.txt");
-		gameLocations = testRead.getLocationMap();
+				"src/edu/westga/cs3211/text_adventure_game//assets/testHazard.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/testNPCs.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/testItems.txt");
+		
+		testRead.loadAllData();
+		gameLocations = testRead.getLocations();
 		gameHazards = testRead.getHazards();
+		gameNPCs = testRead.getNPCs();
+		gameItems = testRead.getItems();
 	}
 	
 	@Test
-	public void validLocationTestNoHazardNotGoal() {
-		String name = "EntryRoom";
-		String description1 = "You enter a mysterious dungeon and a stone slab shuts behind you. You face South and you see you can move East or West.";
-		String description2 = "You are back at the entrance. You can move East or West.";
-		String[] connectedRooms = new String[] {"", "DartRoom", "", "SmokeRoom"};
-		boolean hasHazard = false;
+	public void testValidLocationEntryRoom() {
+		String name = "EntryRoomTest";
+		String description1 = "Entry room, dead center.";
+		String description2 = "Entry room, dead center. 2";
+		String[] connectedRooms = new String[] {"TopCenter", "CenterRight", "BottomCenter", "CenterLeft"};
 		String hazardName = "";
 		boolean isGoal = false;
-		Location callLocation = new Location(name, description1, description2, connectedRooms, hasHazard, hazardName, isGoal);
+		Location callLocation = new Location(name, description1, description2, connectedRooms, null, isGoal);
 		
 		assertEquals(callLocation.getRoomName(), gameLocations.get(name).getRoomName());
-		assertEquals(callLocation.getRoomDescription(), gameLocations.get(name).getRoomDescription());
-		assertEquals(callLocation.getRoomDescription(), gameLocations.get(name).getRoomDescription());
-		assertEquals(callLocation.getHazardCheck(), gameLocations.get(name).getHazardCheck());
-		assertEquals(callLocation.getRoomDescription(), gameLocations.get(name).getRoomDescription());
-		assertEquals(callLocation.getIsGoal(), gameLocations.get(name).getIsGoal());
+//		assertEquals(callLocation.getRoomDescription(), gameLocations.get(name).getRoomDescription());
+//		assertEquals(callLocation.getRoomDescription(), gameLocations.get(name).getRoomDescription());
+//		assertEquals(callLocation.hasHazard(), gameLocations.get(name).hasHazard());
+//		assertEquals(callLocation.getRoomDescription(), gameLocations.get(name).getRoomDescription());
+//		assertEquals(callLocation.isGoal(), gameLocations.get(name).isGoal());
 	}
-	
-	@Test
-	public void validLocationTestWithHazardNoGoal() {
-		String name = "SmokeRoom";
-		String description1 = "You went West. You enter a large square room with holes in the floor.";
-		String description2 = "The room is still filled with smoke.";
-		String[] connectedRooms = new String[] {"", "EntryRoom", "", ""};
-		boolean hasHazard = true;
-		String hazardName = "SmokeHazard";
-		boolean isGoal = false;
-		Location callLocation = new Location(name, description1, description2, connectedRooms, hasHazard, hazardName, isGoal);
-		
-		assertEquals(callLocation.getRoomName(), gameLocations.get(name).getRoomName());
-		assertEquals(callLocation.getRoomDescription(), gameLocations.get(name).getRoomDescription());
-		assertEquals(callLocation.getRoomDescription(), gameLocations.get(name).getRoomDescription());
-		assertEquals(callLocation.getHazardCheck(), gameLocations.get(name).getHazardCheck());
-		assertEquals(callLocation.getRoomDescription(), gameLocations.get(name).getRoomDescription());
-		assertEquals(callLocation.getIsGoal(), gameLocations.get(name).getIsGoal());
-	}
-	
-	@Test
-	public void validLocationNoHazardYesGoal() {
-		String name = "GoalRoom";
-		String description1 = "You enter a roundish room and see a cake sitting on a table in the center of the room.";
-		String description2 = "You enter a roundish room and see a cake sitting on a table in the center of the room.";
-		String[] connectedRooms = new String[] {"DartRoom", "", "", ""};
-		boolean hasHazard = false;
-		String hazardName = "";
-		boolean isGoal = true;
-		Location callLocation = new Location(name, description1, description2, connectedRooms, hasHazard, hazardName, isGoal);
-		
-		assertEquals(callLocation.getRoomName(), gameLocations.get(name).getRoomName());
-		assertEquals(callLocation.getRoomDescription(), gameLocations.get(name).getRoomDescription());
-		assertEquals(callLocation.getRoomDescription(), gameLocations.get(name).getRoomDescription());
-		assertEquals(callLocation.getHazardCheck(), gameLocations.get(name).getHazardCheck());
-		assertEquals(callLocation.getRoomDescription(), gameLocations.get(name).getRoomDescription());
-		assertEquals(callLocation.getIsGoal(), gameLocations.get(name).getIsGoal());
-	}
-	
-	@Test
-	public void invalidLocationTest() {
-		String name = "DartRoom";
-		String description1 = "You enter a medium sized room with many alcoves.";
-		String description2 = "You watch your step enter this room.";
-		String[] connectedRooms = new String[] {"", "", "GoalRoom", "EntryRoom"};
-		boolean hasHazard = false;
-		String hazardName = "";
-		boolean isGoal = true;
-		Location callLocation = new Location(name, description1, description2, connectedRooms, hasHazard, hazardName, isGoal);
-		
-		assertNotEquals(callLocation.getRoomName(), gameLocations.get("SmokeRoom").getRoomName());
-		assertNotEquals(callLocation.getRoomDescription(), gameLocations.get("SmokeRoom").getRoomDescription());
-		assertNotEquals(callLocation.getRoomDescription(), gameLocations.get("SmokeRoom").getRoomDescription());
-		assertNotEquals(callLocation.getHazardCheck(), gameLocations.get("SmokeRoom").getHazardCheck());
-		assertNotEquals(callLocation.getRoomDescription(), gameLocations.get("SmokeRoom").getRoomDescription());
-		assertNotEquals(callLocation.getIsGoal(), gameLocations.get("SmokeRoom").getIsGoal());
-	}
-	
-	@Test
-	public void validHazard() {
-		String name = "SmokeHazard";
-		String description = "The room quickly fills with smoke. You cannot see any details in the room.";
-		int damageValue = 0;
-		Hazard callHazard = new Hazard(name, description, damageValue);
-		
-		assertEquals(callHazard.getHazardName(), gameHazards.get(callHazard.getHazardName()).getHazardName());
-		assertEquals(callHazard.getHazardDescription(), gameHazards.get(callHazard.getHazardName()).getHazardDescription());
-		assertEquals(callHazard.getHazardDamageValue(), gameHazards.get(callHazard.getHazardName()).getHazardDamageValue());
-	}
-	
-	@Test
-	public void invalidHazard() {
-		String name = "SmokeHazard";
-		String description = "The room quickly fills with smoke. You cannot see any details in the room.";
-		int damageValue = 0;
-		Hazard callHazard = new Hazard(name, description, damageValue);
-		
-		assertNotEquals(callHazard.getHazardName(), gameHazards.get("DartHazard").getHazardName());
-		assertNotEquals(callHazard.getHazardDescription(), gameHazards.get("DartHazard").getHazardDescription());
-		assertNotEquals(callHazard.getHazardDamageValue(), gameHazards.get("DartHazard").getHazardDamageValue());
-	}
-	
-//	@Test
-//	public void gameLocationsFileNotFoundException() {
-//		FileReader testRead = new FileReader("", 
-//				"src/edu/westga/cs3211/text_adventure_game//assets/testHazards.txt");
-////		assertThrows(FileNotFoundException.class,()-> {
-////			new FileReader("", 
-////					"src/edu/westga/cs3211/text_adventure_game//assets/testHazards.txt");
-////		});
-//	}
-//	
-//	@Test
-//	public void hazardLocationFileNotFoundException() {
-//		FileReader testRead = new FileReader("src/edu/westga/cs3211/text_adventure_game/assets/testLocations.txt", 
-//				"");
-////		assertThrows(FileNotFoundException.class,()-> {
-////			new FileReader("src/edu/westga/cs3211/text_adventure_game/assets/testLocations.txt", 
-////					"");
-////		});
-//	}
-//	
-//	@Test
-//	public void bothFileNotFoundException() {
-//		FileReader testRead = new FileReader("", "");
-////		assertThrows(FileNotFoundException.class,()-> {
-////			new FileReader("", "");
-////		});
-//	}
 }

@@ -3,17 +3,35 @@ package edu.westga.cs3211.text_adventure_game.test.testHazard;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.util.HashMap;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import edu.westga.cs3211.text_adventure_game.model.FileReader;
 import edu.westga.cs3211.text_adventure_game.model.Hazard;
+import edu.westga.cs3211.text_adventure_game.model.Item;
 
 public class TestHazard {
 
+	private static HashMap<String, Hazard> gameHazards;
+	
+	@BeforeAll
+	public static void init() {
+		FileReader testRead = new FileReader("src/edu/westga/cs3211/text_adventure_game/assets/testLocations.txt", 
+				"src/edu/westga/cs3211/text_adventure_game//assets/testHazard.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/testNPCs.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/testItems.txt");
+		
+		testRead.loadAllData();
+		gameHazards = testRead.getHazards();
+	}
+	
 	@Test
-	public void validHazard() {
-		String name = "SmokeRoom";
-		String description = "Fills with smoke";
-		int damage = 0;
+	public void testValidHazardConstructor() {
+		String name = "DragonHazard";
+		String description = "The dragon breathes fire towards you!";
+		int damage = 4;
 		Hazard newHazard = new Hazard(name, description, damage);
 		
 		assertEquals(name, newHazard.getHazardName());
@@ -22,14 +40,42 @@ public class TestHazard {
 	}
 	
 	@Test
-	public void invalidHazard() {
-		String name = "SmokeRoom";
-		String description = "Fills with smoke";
-		int damage = 0;
-		Hazard newHazard = new Hazard(name, description, damage);
+	public void testInvalidHazardConstructor() {
+		String firstHazardName = "SmokeRoom";
+		String firstHazardDescription = "Fills with smoke";
+		int firstHazardDamage = 0;
+		Hazard firstHazard = new Hazard(firstHazardName, firstHazardDescription, firstHazardDamage);
 		
-		assertNotEquals("DartRoom", newHazard.getHazardName());
-		assertNotEquals("Dart hit", newHazard.getHazardDescription());
-		assertNotEquals(2, newHazard.getHazardDamageValue());		
+		String secondHazardName = "WolfHazard";
+		String secondHazardDescription = "The wolf lunges at you with sharp teeth!";
+		int secondHazardDamage = 4;
+		Hazard secondHazard = new Hazard(secondHazardName, secondHazardDescription, secondHazardDamage);
+		
+		assertNotEquals(firstHazard.getHazardName(), secondHazard.getHazardName());
+		assertNotEquals(firstHazard.getHazardDamageValue(), secondHazard.getHazardDescription());
+		assertNotEquals(firstHazard.getHazardDamageValue(), secondHazard.getHazardDamageValue());		
+	}
+	
+	@Test
+	public void testValidLoadedItem() {
+		String name = "DragonHazard";
+		String description = "The dragon breathes fire towards you!";
+		int damage = 7;
+		
+		assertEquals(name, this.gameHazards.get(name).getHazardName());
+		assertEquals(description, this.gameHazards.get(name).getHazardDescription());
+		assertEquals(damage, this.gameHazards.get(name).getHazardDamageValue());
+	}
+	
+	@Test
+	public void testInvalidLoadedItem() {
+		String wrongName = "WolfHazard";		
+		String name = "DragonHazard";
+		String description = "he dragon breathes fire towards you!";
+		int damage = 7;
+		
+		assertNotEquals(name, this.gameHazards.get(wrongName).getHazardName());
+		assertNotEquals(description, this.gameHazards.get(wrongName).getHazardDescription());
+		assertNotEquals(damage, this.gameHazards.get(wrongName).getHazardDamageValue());
 	}
 }

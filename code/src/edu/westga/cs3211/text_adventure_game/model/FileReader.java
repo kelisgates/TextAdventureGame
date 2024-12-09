@@ -60,6 +60,11 @@ public class FileReader {
 		try (Scanner scanner = new Scanner(new File(this.itemFile))) {
 			while (scanner.hasNextLine()) {
 				String name = scanner.nextLine();
+				
+				if (name.isEmpty()) {
+					continue;
+				}
+				
 				String description = scanner.nextLine();
 				Item item = new Item(name, description);
 				this.items.put(name, item);
@@ -90,6 +95,11 @@ public class FileReader {
 		try (Scanner scanner = new Scanner(new File(this.npcFile))) {
 			while (scanner.hasNextLine()) {
 				String type = scanner.nextLine();
+				
+				if (type.isEmpty()) {
+					continue;
+				}
+
 				String name = scanner.nextLine();
 				String description = scanner.nextLine();
 				String dialogue = scanner.nextLine();
@@ -98,6 +108,7 @@ public class FileReader {
 					int attackDamage = Integer.parseInt(scanner.nextLine());
 					String itemDropName = scanner.nextLine();
 					Item itemDrop = this.items.get(itemDropName);
+					
 					EnemyNPC enemy = new EnemyNPC(name, description, dialogue, attackDamage, itemDrop);
 					this.npcs.put(name, enemy);
 				} else if (type.equalsIgnoreCase("Friendly")) {

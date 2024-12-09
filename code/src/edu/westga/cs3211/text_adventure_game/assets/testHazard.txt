@@ -1,0 +1,7 @@
+DragonHazard
+The dragon breathes fire towards you!
+7
+
+WolfHazard
+The wolf lunges at you with sharp teeth!
+4

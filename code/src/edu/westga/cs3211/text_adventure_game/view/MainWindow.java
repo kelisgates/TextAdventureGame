@@ -178,16 +178,16 @@ public class MainWindow {
 
 	private void loadItemImages() {
 		this.angelWingImage
-				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/images/AngelWings.jpg"));
+				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/Images/AngelWings.jpg"));
 		this.blueGemImage
-				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/images/BlueGem.jpg"));
+				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/Images/BlueGem.jpg"));
 		this.greenGemImage
-				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/images/GreenGem.jpg"));
-		this.key.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/images/Key.jpg"));
-		this.redGemImage.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/images/RedGem.jpg"));
+				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/Images/GreenGem.jpg"));
+		this.key.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/Images/Key.jpg"));
+		this.redGemImage.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/Images/RedGem.jpg"));
 		this.whiteGemImage
 				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/images/WhiteGem.jpg"));
-		this.swordImage.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/images/Sword.jpg"));
+		this.swordImage.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/Images/Sword.jpg"));
 
 		this.initializeItemVisibility();
 	}
@@ -203,12 +203,12 @@ public class MainWindow {
 	}
 
 	private void initializeItemVisibility() {
-		this.angelWingImage.setDisable(true);
-		this.blueGemImage.setDisable(true);
-		this.greenGemImage.setDisable(true);
-		this.key.setDisable(true);
-		this.redGemImage.setDisable(true);
-		this.whiteGemImage.setDisable(true);
+//		this.angelWingImage.setDisable(true);
+//		this.blueGemImage.setDisable(true);
+//		this.greenGemImage.setDisable(true);
+//		this.key.setDisable(true);
+//		this.redGemImage.setDisable(true);
+//		this.whiteGemImage.setDisable(true);
 	}
 
 	private void checkForWinOrGameOver(String result) {

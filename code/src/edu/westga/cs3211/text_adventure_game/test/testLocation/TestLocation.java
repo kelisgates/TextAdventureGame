@@ -50,7 +50,7 @@ public class TestLocation {
 	}
 	
 	@Test
-	public void testInvalidLocationConstructorHazard() {
+	public void testValidLocationConstructorHazard() {
 		String name = "EntryRoom";
 		String descriptionOne = "Entry room, dead center.";
 		String descriptionTwo = "Entry room, dead center. 2";

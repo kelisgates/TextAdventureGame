@@ -41,7 +41,7 @@ public class testGameManager {
 	
 	@Test
 	public void testGameManagerGetPlayer() {
-		GameManager gameManager = new GameManager(testRead);
+		GameManager gameManager = new GameManager();
 		Player player = new Player();
 		
 		assertEquals(player.getHealth(), gameManager.getPlayer().getHealth());
@@ -51,7 +51,13 @@ public class testGameManager {
 	
 	@Test
 	public void testGameManagerLocationDescriptionNoNPC() {
-		GameManager gameManager = new GameManager(testRead);
+		FileReader testRead = new FileReader("src/edu/westga/cs3211/text_adventure_game/assets/gameLocations.txt", 
+				"src/edu/westga/cs3211/text_adventure_game//assets/hazards.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/npcs.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/items.txt");
+		testRead.loadAllData();
+		
+		GameManager gameManager = new GameManager();
 		String locationDescription = "You are in the hallway. It's dimly lit and eerie.";
 		
 		assertEquals(locationDescription, gameManager.getLocationDescription());
@@ -59,7 +65,13 @@ public class testGameManager {
 	
 	@Test
 	public void testGameManagerLocationDescriptionWithNPC() {
-		GameManager gameManager = new GameManager(testRead);
+		FileReader testRead = new FileReader("src/edu/westga/cs3211/text_adventure_game/assets/gameLocations.txt", 
+				"src/edu/westga/cs3211/text_adventure_game//assets/hazards.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/npcs.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/items.txt");
+		testRead.loadAllData();
+		
+		GameManager gameManager = new GameManager();
 		String locationDescription = "You are in the hallway. It's dimly lit and eerie. \n"
 				+ "";
 		

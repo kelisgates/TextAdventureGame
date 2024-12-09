@@ -15,7 +15,7 @@ import java.util.Scanner;
  * @version Fall 2024
  */
 public class FileReader {
-
+	
 	private String gameMapFile;
 	private String hazardFile;
 	private String npcFile;
@@ -34,6 +34,28 @@ public class FileReader {
 	 * @param npcFile     name of the NPC file
 	 * @param itemFile    name of the item file
 	 */
+	public FileReader() {
+		this.gameMapFile = "src/edu/westga/cs3211/text_adventure_game/assets/gameLocations.txt";
+		 this.hazardFile = "src/edu/westga/cs3211/text_adventure_game/assets/hazards.txt";
+		 this.npcFile = "src/edu/westga/cs3211/text_adventure_game/assets/npcs.txt";
+		 this.itemFile = "src/edu/westga/cs3211/text_adventure_game/assets/items.txt";
+		
+		 this.gameLocations = new HashMap<>();
+		 this.hazards = new HashMap<>();
+		 this.npcs = new HashMap<>();
+		 this.items = new HashMap<>();
+		 
+		 this.loadAllData();
+	}
+	
+	/**
+	 * FileReader Constructor
+	 * 
+	 * @param gameMapFile name of the game location file
+	 * @param hazardFile  name of the hazard file
+	 * @param npcFile     name of the NPC file
+	 * @param itemFile    name of the item file
+	 */
 	public FileReader(String gameMapFile, String hazardFile, String npcFile, String itemFile) {
 		this.gameMapFile = gameMapFile;
 		this.hazardFile = hazardFile;
@@ -44,6 +66,8 @@ public class FileReader {
 		this.hazards = new HashMap<>();
 		this.npcs = new HashMap<>();
 		this.items = new HashMap<>();
+		
+		this.loadAllData();
 	}
 
 	/**

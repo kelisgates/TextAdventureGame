@@ -30,9 +30,9 @@ public class GameManager {
 	 * 
 	 * @param gameFiles the FileReader instance containing game data
 	 */
-	public GameManager(FileReader gameFiles) {
+	public GameManager() {
 		this.player = new Player();
-		this.worldManager = new WorldManager(gameFiles);
+		this.worldManager = new WorldManager();
 		this.actionOptions = new ArrayList<>();
 		this.previousLocation = null;
 		this.defeatedEnemies = new HashSet<>();

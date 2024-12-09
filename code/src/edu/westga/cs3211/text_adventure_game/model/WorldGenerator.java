@@ -7,8 +7,11 @@ import java.util.List;
 
 public class WorldGenerator {
 
-    private FileReader gameFiles;
-    private HashMap<String, Location> gameLocations;
+	private FileReader fileReader;
+	private HashMap<String, Location> gameLocations;
+//	private HashMap<String, Hazard> gameHazards;
+//	private HashMap<String, NPC> gameNPCs;
+//	private HashMap<String, Item> gameItems;
     private Location[][] worldGrid;
 	
     /**
@@ -16,9 +19,13 @@ public class WorldGenerator {
      * 
      * @param gameFiles files to read
      */
-    public WorldGenerator(FileReader gameFiles) {
-        this.gameFiles = gameFiles;
-        this.gameLocations = gameFiles.getLocations();
+    public WorldGenerator(HashMap<String, Location> gameLocations) {
+    	this.fileReader = new FileReader();
+        this.gameLocations = this.fileReader.getLocations();
+//        this.gameHazards = this.fileReader.getHazards();
+//        this.gameNPCs = this.fileReader.getNPCs();
+//        this.gameItems = this.fileReader.getItems();
+        
         this.worldGrid = new Location[3][3];
         this.generateWorld();
     }
@@ -59,27 +66,36 @@ public class WorldGenerator {
 	    }
 	
 	 /**
-	     * Gets the starting location (EntryRoom)
-	     * 
-	     * @return starting location
-	     */
-	    public Location getStartingLocation() {
-	        for (Location[] row : worldGrid) {
-	            for (Location loc : row) {
-	                if (loc != null && loc.getRoomName().equals("EntryRoom")) {
-	                    return loc;
-	                }
-	            }
-	        }
-	        return null;
-	    }
+     * Gets the starting location (EntryRoom)
+     * 
+     * @return starting location
+     */
+    public Location getStartingLocation() {
+        for (Location[] row : worldGrid) {
+            for (Location loc : row) {
+                if (loc != null && loc.getRoomName().equals("EntryRoom")) {
+                    return loc;
+                }
+            }
+        }
+        return null;
+    }
 
-	    /**
-	     * Gets the game locations
-	     * 
-	     * @return gameLocations
-	     */
-	    public HashMap<String, Location> getGameLocations() {
-	        return this.gameLocations;
-	    }
+    /**
+     * Gets the game locations
+     * 
+     * @return gameLocations
+     */
+    public HashMap<String, Location> getGameLocations() {
+        return this.gameLocations;
+    }
+    
+    /**
+     * Gets the game locations
+     * 
+     * @return gameLocations
+     */
+    public HashMap<String, Location> getGameHazards() {
+        return this.gameLocations;
+    }
 }

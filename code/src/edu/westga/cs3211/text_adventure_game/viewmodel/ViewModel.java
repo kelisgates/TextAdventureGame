@@ -46,7 +46,7 @@ public class ViewModel {
 	 * 
 	 * @param gameManager the GameManager instance
 	 */
-	public ViewModel(GameManager gameManager) {
+	public ViewModel() {
 		this.locationDescription = new SimpleStringProperty();
 		this.movementDirection = new SimpleListProperty<>(FXCollections.observableArrayList(new ArrayList<>()));
 		this.playerHealth = new SimpleStringProperty();

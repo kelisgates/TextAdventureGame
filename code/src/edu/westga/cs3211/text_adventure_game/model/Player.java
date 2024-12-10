@@ -38,6 +38,16 @@ public class Player {
             this.health = 0;
         }
     }
+    
+    /**
+     * adds to the Player's health by the value. 
+     * 
+     * @param value the value added to player health
+     */
+    public void addHealth(int value) {
+        this.health += value;
+        
+    }
 
     /**
      * Returns the current health of the player.
@@ -47,7 +57,7 @@ public class Player {
     public int getHealth() {
         return this.health;
     }
-
+    
     /**
      * Checks if the player is dead.
      * 

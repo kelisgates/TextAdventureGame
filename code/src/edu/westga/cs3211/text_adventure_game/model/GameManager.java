@@ -33,7 +33,7 @@ public class GameManager {
 		this.actionOptions = new ArrayList<>();
 		this.previousLocation = null;
 		this.defeatedEnemies = new HashSet<>();
-		this.canPickUpItems = false;
+		this.canPickUpItems = true;
 		this.gemPlacementOrder = new ArrayList<>();
 		this.initializeGameManager();
 	}
@@ -46,6 +46,27 @@ public class GameManager {
 	public Player getPlayer() {
 		return this.player;
 	}
+	
+	/**
+	 * sets player location (main use is for testing purposes)
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param name name of location you want to set player at
+	 */
+	public void setPlayerLocation(String name) {
+		this.playerLocation = this.worldManager.getGameLocations().get(name);
+	}
+	
+	/**gets player current location 
+	 * @precondition none
+	 * @postcondition none
+	 * @return location of player
+	 */
+	public Location getPlayerLocation() {
+		return this.playerLocation;
+	}
 
 	/**
 	 * Initializes the game by setting the starting location.
@@ -54,14 +75,6 @@ public class GameManager {
 		this.playerLocation = this.worldManager.getStartingLocation();
 	}
 	
-	public void setPlayerLocation(String name) {
-		this.playerLocation = this.worldManager.getGameLocations().get(name);
-	}
-	
-	public Location getPlayerLocation() {
-		return this.playerLocation;
-	}
-
 	/**
 	 * Retrieves the current room's description.
 	 * 
@@ -259,24 +272,32 @@ public class GameManager {
 	 * @return fight result description
 	 */
 	private String handleFight() {
+		EnemyNPC enemy = null;
 		for (NPC npc : this.playerLocation.getNpcs()) {
 			if (npc instanceof EnemyNPC) {
-				EnemyNPC enemy = (EnemyNPC) npc;
-
-				boolean hasSword = this.player.getInventory().getItem("Sword") != null;
-				if (this.player.getHealth() >= 8 && hasSword) {
-					this.playerLocation.removeNpc(enemy);
-					this.defeatedEnemies.add(npc.getName());
-					this.canPickUpItems = true;
-
-					if (enemy.getItemDrop() != null) {
-						this.playerLocation.addItem(enemy.getItemDrop());
-					}
-					return "You fought the " + enemy.getName() + " and won!";
-				} else {
-					return this.handlePlayerDeath();
-				}
+				enemy = (EnemyNPC) npc;
 			}
+				
+			boolean hasSword = this.player.getInventory().getItem("Sword") != null;
+				
+			if (!hasSword) {	
+				this.player.reduceHealth(enemy.getAttackDamage());	
+				return "You attempted to throw a punch, but " + enemy.getName() + " was not phased." + "\n" + enemy.getDescription();
+			}
+				
+			if (this.player.getHealth() >= 8 && hasSword) {
+				this.playerLocation.removeNpc(enemy);
+				this.defeatedEnemies.add(npc.getName());
+				this.canPickUpItems = true;
+
+				if (enemy.getItemDrop() != null) {
+					this.playerLocation.addItem(enemy.getItemDrop());
+				}
+				return "You fought the " + enemy.getName() + " and won!";
+			} else {
+				return this.handlePlayerDeath();
+			}
+			
 		}
 		return "No enemy to fight.";
 	}
@@ -308,7 +329,7 @@ public class GameManager {
 				if (friendly.getName().equals("Angel")) {
 					return this.handleAngelInteraction(friendly);
 				} else if (friendly.getName().equals("Healer")) {
-					//TODO: handle healing player
+					this.player.addHealth(5);
 					return friendly.getDialogue();
 				}
 			}
@@ -342,16 +363,16 @@ public class GameManager {
         if (item != null) {
             this.player.getInventory().removeItem(item);
             this.playerLocation.addItem(item);
-            
-            if (this.playerLocation.getRoomName().equals("HiddenRoom")) {
-                if (this.isGem(itemName)) {
-                    this.gemPlacementOrder.add(itemName);
-                    return this.handleGemPlacement();
-                }
-            }
-            
-            return "You dropped the " + item.getItemName() + ".";
         }
+        
+        if (this.playerLocation.getRoomName().equals("HiddenRoom")) {
+             if (this.isGem(itemName)) {
+                this.gemPlacementOrder.add(itemName);
+                return this.handleGemPlacement();
+            }
+             return "You dropped the " + item.getItemName() + ".";
+        }
+            
         return "You don't have the " + itemName + " to drop.";
     }
     
@@ -365,21 +386,18 @@ public class GameManager {
     private String handleGemPlacement() {
         List<String> correctOrder = List.of("BlueGem", "GreenGem", "RedGem", "WhiteGem");
         
-        if (this.gemPlacementOrder.size() == correctOrder.size()) {
-            if (this.gemPlacementOrder.equals(correctOrder)) {
-            	
-                Item key = this.handlePickupKey();
-                if (key != null) {
-                    this.playerLocation.addItem(key);
-                    this.worldManager.getGameLocations().get("GoalRoom").removeItem(key);
-                    return "You have placed all gems in the correct order! The Key is now available to pick up.";
-                } else {
-                    return "Key is already placed.";
-                }
+        if (this.gemPlacementOrder.size() == correctOrder.size() && this.gemPlacementOrder.equals(correctOrder)) {
+            Item key = this.handlePickupKey();
+            if (key != null) {
+                this.playerLocation.addItem(key);
+                this.worldManager.getGameLocations().get("GoalRoom").removeItem(key);
+                return "You have placed all gems in the correct order! The Key is now available to pick up.";
             } else {
-                this.gemPlacementOrder.clear();
-                return "Incorrect gem placement order. Please try again.";
+                return "Key is already placed.";
             }
+        } else if (!this.gemPlacementOrder.equals(correctOrder)) {
+            this.gemPlacementOrder.clear();
+            return "Incorrect gem placement order. Please try again.";
         }
         return "Place all gems in the correct order to obtain the Key.";
     }
@@ -396,9 +414,6 @@ public class GameManager {
 	 * @return pick-up result description
 	 */
 	public String pickUpItem(String itemName) {
-        if (!this.canPickUpItems) {
-            return "You cannot pick up items now.";
-        }
         Item item = this.playerLocation.getItem(itemName);
         if (item != null) {
             this.player.getInventory().addItem(item);

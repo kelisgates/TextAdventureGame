@@ -82,7 +82,13 @@ public class ViewModel {
 	 */
 	public String handleAction(Actions action) {
 		String result = this.gameManager.handleAction(action);
-		this.updateLocationDescription();
+		
+		if (action.equals(Actions.INTERACT)) {
+			this.getLocationDescriptionProperty().set(this.gameManager.getLocationDescription() + "\n" + result);
+		} else {
+			this.updateLocationDescription();
+		}
+		
 		this.updateMovementDirection();
 		this.updatePlayerHealth();
 		this.updateItemVisibility();

@@ -51,13 +51,13 @@ public class testGameManager {
 		testRead.loadAllData();
 		
 		GameManager gameManager = new GameManager();
-		String locationDescription = "You are in the hallway. It's dimly lit and eerie.";
+		String locationDescription = "You are in the hallway. It's dimly lit and eerie.\n";
 		
 		assertEquals(locationDescription, gameManager.getLocationDescription());
 	}
 	
 	@Test
-	public void testGameManagerLocationDescriptionWithNPC() {
+	public void testGameManagerLocationWithNPCInteraction() {
 		FileReader testRead = new FileReader("src/edu/westga/cs3211/text_adventure_game/assets/gameLocations.txt", 
 				"src/edu/westga/cs3211/text_adventure_game//assets/hazards.txt",
 				"src/edu/westga/cs3211/text_adventure_game//assets/npcs.txt",
@@ -65,11 +65,38 @@ public class testGameManager {
 		testRead.loadAllData();
 		
 		GameManager gameManager = new GameManager();
-		String locationDescription = "You are in the hallway. It's dimly lit and eerie. \n"
-				+ "";
 		
-		gameManager.movePlayer(Actions.NORTH);
+		gameManager.setPlayerLocation("HealingRoom");
+		String result = gameManager.handleAction(Actions.INTERACT);
 		
-		System.out.println(gameManager.getLocationDescription());
+		
+		
+		Location location = gameManager.getPlayerLocation();
+		NPC npc = location.getNpcs().get(0);
+		
+		assertEquals(result, npc.getDialogue());
+		
+	}
+	
+	@Test
+	public void testGameManagerLocationWithNPCAngelInteraction() {
+		FileReader testRead = new FileReader("src/edu/westga/cs3211/text_adventure_game/assets/gameLocations.txt", 
+				"src/edu/westga/cs3211/text_adventure_game//assets/hazards.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/npcs.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/items.txt");
+		testRead.loadAllData();
+		
+		GameManager gameManager = new GameManager();
+		
+		gameManager.setPlayerLocation("AngelRoom");
+		String result = gameManager.handleAction(Actions.INTERACT);
+		
+		
+		
+		Location location = gameManager.getPlayerLocation();
+		NPC npc = location.getNpcs().get(0);
+		
+		assertEquals(result, npc.getDialogue());
+		
 	}
 }

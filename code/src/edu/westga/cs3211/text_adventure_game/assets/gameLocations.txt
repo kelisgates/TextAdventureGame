@@ -16,7 +16,7 @@ DragonRoom
 You enter the dragon's lair. The dragon eyes you warily.
 The dragon is still here, guarding something.
 HiddenRoom,,,AngelRoom
-DragonHazard
+none
 false
 
 HiddenRoom
@@ -44,14 +44,14 @@ WolfRoom
 A wolf snarls at you from the shadows.
 The wolf's body lies still.
 EntryRoom,,,
-WolfHazard
+none
 false
 
 GoblinRoom
 A goblin blocks your path, brandishing a crude weapon.
 The goblin is defeated.
 ,,WeaponRoom,
-GoblinHazard
+none
 false
 
 GoalRoom
@@ -60,3 +60,52 @@ You are back in the goal room.
 HiddenRoom,,,
 none
 true
+
+Hall01
+Hall01
+Hall01+
+Hall02,Hall03,Hall04,Hall05
+none
+false
+
+Hall02
+Hall02
+Hall02+
+Hall01,Hall03,Hall05,Hall06
+Gas
+false
+
+Hall03
+Hall03
+Hall03+
+Hall02,Hall01,Hall04,Hall05
+none
+false
+
+Hall04
+Hall04
+Hall04+
+AngelRoom,DragonRoom,GoblinRoom,
+Pothole
+false
+
+Hall05
+Hall05
+Hall05+
+,SecretRoom,EntryRoom,HealingRoom
+none
+false
+
+Hall06
+Hall06
+Hall06+
+HiddenRoom,,,
+Arrow
+false
+
+Hall07
+Hall07
+Hall07+
+HiddenRoom,,,
+none
+false

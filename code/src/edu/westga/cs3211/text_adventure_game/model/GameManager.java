@@ -84,10 +84,20 @@ public class GameManager {
 		StringBuilder description = new StringBuilder();
 
 		description.append(this.playerLocation.getRoomDescription()).append("\n");
+		
+		if (this.playerLocation.hasHazard()) {
+			this.appendHazardDescription(description);
+			this.player.reduceHealth(this.playerLocation.getHazard().getHazardDamageValue());
+		}
+		
 		this.appendNpcDescription(description);
 		this.appendItemDescription(description);
 
 		return description.toString();
+	}
+	
+	private void appendHazardDescription(StringBuilder description) {
+		description.append(this.playerLocation.getHazard().getHazardDescription()).append("\n");
 	}
 
 	private void appendItemDescription(StringBuilder description) {

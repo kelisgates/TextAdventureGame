@@ -1,7 +1,7 @@
-DragonHazard
-The dragon breathes fire towards you!
-7
+Pothole
+There was a hole in the floor. You tripped.
+1
 
-WolfHazard
-The wolf lunges at you with sharp teeth!
+Arrow
+An arrow shots out of the wall and hits you.
 4

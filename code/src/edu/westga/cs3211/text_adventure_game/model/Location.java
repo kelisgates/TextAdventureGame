@@ -63,11 +63,15 @@ public class Location {
 	 *         firstTimeEntry == false
 	 */
 	public String getRoomDescription() {
+		
 		if (this.firstTimeEntry) {
+			System.out.println("1 Room description accessed, firstTimeEntry: " + this.firstTimeEntry);
 			this.firstTimeEntry = false;
 			return this.roomDescription1;
+		} else {
+			System.out.println("2 Room description accessed, firstTimeEntry: " + this.firstTimeEntry);
+			return this.roomDescription2;
 		}
-		return this.roomDescription2;
 	}
 
 	/**

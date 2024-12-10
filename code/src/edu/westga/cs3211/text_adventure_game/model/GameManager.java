@@ -33,7 +33,7 @@ public class GameManager {
 		this.actionOptions = new ArrayList<>();
 		this.previousLocation = null;
 		this.defeatedEnemies = new HashSet<>();
-		this.canPickUpItems = false;
+		this.canPickUpItems = true;
 		this.gemPlacementOrder = new ArrayList<>();
 		this.initializeGameManager();
 	}
@@ -46,6 +46,27 @@ public class GameManager {
 	public Player getPlayer() {
 		return this.player;
 	}
+	
+	/**
+	 * sets player location (main use is for testing purposes)
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param name name of location you want to set player at
+	 */
+	public void setPlayerLocation(String name) {
+		this.playerLocation = this.worldManager.getGameLocations().get(name);
+	}
+	
+	/**gets player current location 
+	 * @precondition none
+	 * @postcondition none
+	 * @return location of player
+	 */
+	public Location getPlayerLocation() {
+		return this.playerLocation;
+	}
 
 	/**
 	 * Initializes the game by setting the starting location.
@@ -54,14 +75,6 @@ public class GameManager {
 		this.playerLocation = this.worldManager.getStartingLocation();
 	}
 	
-	public void setPlayerLocation(String name) {
-		this.playerLocation = this.worldManager.getGameLocations().get(name);
-	}
-	
-	public Location getPlayerLocation() {
-		return this.playerLocation;
-	}
-
 	/**
 	 * Retrieves the current room's description.
 	 * 
@@ -264,6 +277,12 @@ public class GameManager {
 				EnemyNPC enemy = (EnemyNPC) npc;
 
 				boolean hasSword = this.player.getInventory().getItem("Sword") != null;
+				
+				if (!hasSword) {
+					this.player.reduceHealth(enemy.getAttackDamage());
+					return "You attempted to throw a punch, but " + enemy.getName() + " was not phased." + "\n" + enemy.getDescription();
+				}
+				
 				if (this.player.getHealth() >= 8 && hasSword) {
 					this.playerLocation.removeNpc(enemy);
 					this.defeatedEnemies.add(npc.getName());
@@ -308,7 +327,7 @@ public class GameManager {
 				if (friendly.getName().equals("Angel")) {
 					return this.handleAngelInteraction(friendly);
 				} else if (friendly.getName().equals("Healer")) {
-					//TODO: handle healing player
+					this.player.addHealth(5);
 					return friendly.getDialogue();
 				}
 			}
@@ -396,9 +415,6 @@ public class GameManager {
 	 * @return pick-up result description
 	 */
 	public String pickUpItem(String itemName) {
-        if (!this.canPickUpItems) {
-            return "You cannot pick up items now.";
-        }
         Item item = this.playerLocation.getItem(itemName);
         if (item != null) {
             this.player.getInventory().addItem(item);

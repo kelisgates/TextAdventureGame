@@ -99,4 +99,22 @@ public class testGameManager {
 		assertEquals(result, npc.getDialogue());
 		
 	}
+	
+	@Test
+	public void testGameManagerPickupKeyWithoutGems() {
+		FileReader testRead = new FileReader("src/edu/westga/cs3211/text_adventure_game/assets/gameLocations.txt", 
+				"src/edu/westga/cs3211/text_adventure_game//assets/hazards.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/npcs.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/items.txt");
+		testRead.loadAllData();
+		
+		GameManager gameManager = new GameManager();
+		
+		gameManager.setPlayerLocation("GoalRoom");
+		String result = gameManager.pickUpItem("Key");
+		assertEquals("Key", gameManager.getPlayer().getInventory().getItems().get(0).getItemName());
+		System.out.print(result);
+		
+	}
+	
 }

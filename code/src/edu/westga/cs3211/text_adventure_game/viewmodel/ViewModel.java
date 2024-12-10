@@ -81,23 +81,48 @@ public class ViewModel {
 	 * @return result description
 	 */
 	public String handleAction(Actions action) {
-		String result = this.gameManager.handleAction(action);
-		
-		if (action.equals(Actions.INTERACT)) {
-			this.getLocationDescriptionProperty().set(this.gameManager.getLocationDescription() + "\n" + result);
-		} else {
-			this.updateLocationDescription();
-		}
-		
-		this.updateMovementDirection();
-		this.updatePlayerHealth();
-		this.updateItemVisibility();
+	    String result = this.gameManager.handleAction(action);
 
-		this.gameOverorGoalddescription(result);
+	    switch (action) {
+	        case INTERACT:
+	            this.addAndUpdateLocationDescription(result);
+	            break;
 
-		return result;
+	        case PICK_UP:
+	            String itemToPickUp = this.gameManager.pickUpItem(
+	                this.gameManager.getPlayerLocation().getItems().get(0).getItemName()
+	            );
+	            this.addAndUpdateLocationDescription(itemToPickUp);
+	            break;
+
+	        case DROP:
+	            String itemToDrop = this.gameManager.dropItem(
+	                this.gameManager.getPlayer().getInventory().getItems().get(0).getItemName()
+	            );
+	            this.addAndUpdateLocationDescription(itemToDrop);
+	            break;
+
+	        case FIGHT:
+	            this.addAndUpdateLocationDescription(result);
+	            break;
+
+	        default:
+	            this.updateLocationDescription();
+	            break;
+	    }
+	    
+	    this.updateMovementDirection();
+	    this.updatePlayerHealth();
+	    this.updateItemVisibility();
+	    //this.gameOverorGoalddescription(result);
+
+	    return result;
 	}
-
+	
+	private void addAndUpdateLocationDescription(String text) {
+		this.getLocationDescriptionProperty().set(this.gameManager.getLocationDescription() + "\n" + text);
+	}
+	
 	/**
 	 * Drops a specific item.
 	 * 

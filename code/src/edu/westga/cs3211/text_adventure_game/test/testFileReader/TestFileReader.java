@@ -1,9 +1,7 @@
 package edu.westga.cs3211.text_adventure_game.test.testFileReader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -11,8 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import edu.westga.cs3211.text_adventure_game.model.EnemyNPC;
 import edu.westga.cs3211.text_adventure_game.model.FileReader;
-import edu.westga.cs3211.text_adventure_game.model.FriendlyNPC;
-import edu.westga.cs3211.text_adventure_game.model.Hazard;
 import edu.westga.cs3211.text_adventure_game.model.Item;
 import edu.westga.cs3211.text_adventure_game.model.Location;
 import edu.westga.cs3211.text_adventure_game.model.NPC;
@@ -20,7 +16,6 @@ import edu.westga.cs3211.text_adventure_game.model.NPC;
 public class TestFileReader {
 
 	private static HashMap<String, Location> gameLocations;
-	private static HashMap<String, Hazard> gameHazards;
 	private static HashMap<String, NPC> gameNPCs;
 	private static HashMap<String, Item> gameItems;
 	
@@ -33,7 +28,6 @@ public class TestFileReader {
 		
 		testRead.loadAllData();
 		gameLocations = testRead.getLocations();
-		gameHazards = testRead.getHazards();
 		gameNPCs = testRead.getNPCs();
 		gameItems = testRead.getItems();
 	}
@@ -45,7 +39,6 @@ public class TestFileReader {
 		String description2 = "You are back in the hallway.";
 		String[] connectedRooms = new String[] {"AngelRoom", "WeaponRoom", "HealingRoom", "WolfRoom"};
 		
-		String hazardName = "";
 		boolean isGoal = false;
 		Location callLocation = new Location(name, description1, description2, connectedRooms, null, isGoal);
 		
@@ -61,7 +54,6 @@ public class TestFileReader {
 	public void testItemLoading() {
 		String name = "GreenGem";
 		String description = "A shimmering green gemstone.";
-		Item item = new Item(name, description);
 		
 		assertEquals(name, gameItems.get(name).getItemName());
 		assertEquals(description, gameItems.get(name).getDescription());
@@ -72,7 +64,6 @@ public class TestFileReader {
 		String name = "Angel";
 		String description = "A radiant angel with a warm smile.";
 		String dialog = "\"Hey there player, I have a request to make. My wings were stolen by a dragon. Help find them for me, and I will reward you.\"";
-		NPC friendly = new FriendlyNPC(name, description, dialog);
 		
 		assertEquals(name, gameNPCs.get(name).getName());
 		assertEquals(description, gameNPCs.get(name).getDescription());
@@ -90,7 +81,6 @@ public class TestFileReader {
 		String itemDescription = "Beautiful wings that belong to the angel.";
 		Item item = new Item(itemName, itemDescription);
 		
-		EnemyNPC enemy = new EnemyNPC(name, description, dialog, damage, item);
 		EnemyNPC loadedNPC = (EnemyNPC) gameNPCs.get(name);
 		
 		assertEquals(name, loadedNPC.getName());

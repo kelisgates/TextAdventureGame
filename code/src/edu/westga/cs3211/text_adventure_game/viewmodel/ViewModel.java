@@ -1,7 +1,6 @@
 package edu.westga.cs3211.text_adventure_game.viewmodel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import edu.westga.cs3211.text_adventure_game.model.Actions;
 import edu.westga.cs3211.text_adventure_game.model.GameManager;
@@ -43,8 +42,6 @@ public class ViewModel {
 
 	/**
 	 * Constructor for ViewModel.
-	 * 
-	 * @param gameManager the GameManager instance
 	 */
 	public ViewModel() {
 		this.locationDescription = new SimpleStringProperty();
@@ -55,7 +52,7 @@ public class ViewModel {
 
 		this.initializeItemVisibility();
 
-		this.gameManager = gameManager;
+		this.gameManager = new GameManager();
 
 		this.setupGame();
 	}

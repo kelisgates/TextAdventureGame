@@ -1,11 +1,11 @@
 package edu.westga.cs3211.text_adventure_game.test.EnemyNPC;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs3211.text_adventure_game.model.EnemyNPC;
-import edu.westga.cs3211.text_adventure_game.model.FriendlyNPC;
 import edu.westga.cs3211.text_adventure_game.model.Item;
 
 class TestEnemyNPC {

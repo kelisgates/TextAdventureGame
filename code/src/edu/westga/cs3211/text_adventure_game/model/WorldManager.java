@@ -13,26 +13,16 @@ import java.util.HashMap;
 public class WorldManager {
 
 	private WorldGenerator worldGenerator;
-	private FileReader fileReader;
 	
 	private HashMap<String, Location> gameLocations;
-//	private HashMap<String, Hazard> gameHazards;
-//	private HashMap<String, NPC> gameNPCs;
-//	private HashMap<String, Item> gameItems;
 
 	/**
 	 * World Manager constructor.
-	 * 
-	 * @param gameFiles the FileReader instance containing game data
 	 */
 	public WorldManager() {
 		this.worldGenerator = new WorldGenerator(this.gameLocations);
 		
 		this.gameLocations = this.worldGenerator.getGameLocations();
-//		this.gameHazards = this.worldGenerator;
-//		this.gameNPCs = this.worldGenerator;
-//		this.gameItems = this.worldGenerator;
-		
 	}
 
 	/**

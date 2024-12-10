@@ -77,16 +77,16 @@ public class TestLocation {
 		boolean isGoal = false;
 		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
 		
-		assertEquals(name, this.gameLocations.get(name).getRoomName());
-		assertEquals(descriptionOne, this.gameLocations.get(name).getRoomDescription());
-		assertEquals(descriptionTwo, this.gameLocations.get(name).getRoomDescription());
-		assertEquals(connectedRooms[0], this.gameLocations.get(name).getConnectedRooms()[0]);
-		assertEquals(connectedRooms[1], this.gameLocations.get(name).getConnectedRooms()[1]);
-		assertEquals(connectedRooms[2], this.gameLocations.get(name).getConnectedRooms()[2]);
-		assertEquals(connectedRooms[3], this.gameLocations.get(name).getConnectedRooms()[3]);
-		assertEquals(false, this.gameLocations.get(name).hasHazard());
+		assertEquals(name, gameLocations.get(name).getRoomName());
+		assertEquals(descriptionOne, gameLocations.get(name).getRoomDescription());
+		assertEquals(descriptionTwo, gameLocations.get(name).getRoomDescription());
+		assertEquals(connectedRooms[0], gameLocations.get(name).getConnectedRooms()[0]);
+		assertEquals(connectedRooms[1], gameLocations.get(name).getConnectedRooms()[1]);
+		assertEquals(connectedRooms[2], gameLocations.get(name).getConnectedRooms()[2]);
+		assertEquals(connectedRooms[3], gameLocations.get(name).getConnectedRooms()[3]);
+		assertEquals(false, gameLocations.get(name).hasHazard());
 		assertNull(location.getHazard());
-		assertEquals(isGoal, this.gameLocations.get(name).isGoal());
+		assertEquals(isGoal, gameLocations.get(name).isGoal());
 	}
 	
 	@Test
@@ -99,16 +99,16 @@ public class TestLocation {
 		boolean isGoal = true;
 		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
 		
-		assertNotEquals(name, this.gameLocations.get(wrongName).getRoomName());
-		assertNotEquals(descriptionOne, this.gameLocations.get(wrongName).getRoomDescription());
-		assertNotEquals(descriptionTwo, this.gameLocations.get(wrongName).getRoomDescription());
-		assertNotEquals(connectedRooms[0], this.gameLocations.get(wrongName).getConnectedRooms()[0]);
-		assertNotEquals(connectedRooms[1], this.gameLocations.get(wrongName).getConnectedRooms()[1]);
-		assertNotEquals(connectedRooms[2], this.gameLocations.get(wrongName).getConnectedRooms()[2]);
-		assertNotEquals(connectedRooms[3], this.gameLocations.get(wrongName).getConnectedRooms()[3]);
-		assertNotEquals(true, this.gameLocations.get(wrongName).hasHazard());
+		assertNotEquals(name, gameLocations.get(wrongName).getRoomName());
+		assertNotEquals(descriptionOne, gameLocations.get(wrongName).getRoomDescription());
+		assertNotEquals(descriptionTwo, gameLocations.get(wrongName).getRoomDescription());
+		assertNotEquals(connectedRooms[0], gameLocations.get(wrongName).getConnectedRooms()[0]);
+		assertNotEquals(connectedRooms[1], gameLocations.get(wrongName).getConnectedRooms()[1]);
+		assertNotEquals(connectedRooms[2], gameLocations.get(wrongName).getConnectedRooms()[2]);
+		assertNotEquals(connectedRooms[3], gameLocations.get(wrongName).getConnectedRooms()[3]);
+		assertNotEquals(true, gameLocations.get(wrongName).hasHazard());
 		assertNull(location.getHazard());
-		assertNotEquals(isGoal, this.gameLocations.get(wrongName).isGoal());
+		assertNotEquals(isGoal, gameLocations.get(wrongName).isGoal());
 	}
 	
 	@Test

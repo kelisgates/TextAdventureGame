@@ -4,8 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import edu.westga.cs3211.text_adventure_game.model.Actions;
-import edu.westga.cs3211.text_adventure_game.model.FileReader;
-import edu.westga.cs3211.text_adventure_game.model.GameManager;
 import edu.westga.cs3211.text_adventure_game.viewmodel.ViewModel;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;

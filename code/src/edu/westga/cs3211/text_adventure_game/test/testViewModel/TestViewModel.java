@@ -1,14 +1,5 @@
 package edu.westga.cs3211.text_adventure_game.test.testViewModel;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.junit.jupiter.api.Test;
-
-import edu.westga.cs3211.text_adventure_game.model.Actions;
-import edu.westga.cs3211.text_adventure_game.viewmodel.ViewModel;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 public class TestViewModel {
 
 //	@Test

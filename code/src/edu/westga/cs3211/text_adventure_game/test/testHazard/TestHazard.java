@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import edu.westga.cs3211.text_adventure_game.model.FileReader;
 import edu.westga.cs3211.text_adventure_game.model.Hazard;
-import edu.westga.cs3211.text_adventure_game.model.Item;
 
 public class TestHazard {
 
@@ -62,9 +61,9 @@ public class TestHazard {
 		String description = "The dragon breathes fire towards you!";
 		int damage = 7;
 		
-		assertEquals(name, this.gameHazards.get(name).getHazardName());
-		assertEquals(description, this.gameHazards.get(name).getHazardDescription());
-		assertEquals(damage, this.gameHazards.get(name).getHazardDamageValue());
+		assertEquals(name, gameHazards.get(name).getHazardName());
+		assertEquals(description, gameHazards.get(name).getHazardDescription());
+		assertEquals(damage, gameHazards.get(name).getHazardDamageValue());
 	}
 	
 	@Test
@@ -74,8 +73,8 @@ public class TestHazard {
 		String description = "he dragon breathes fire towards you!";
 		int damage = 7;
 		
-		assertNotEquals(name, this.gameHazards.get(wrongName).getHazardName());
-		assertNotEquals(description, this.gameHazards.get(wrongName).getHazardDescription());
-		assertNotEquals(damage, this.gameHazards.get(wrongName).getHazardDamageValue());
+		assertNotEquals(name, gameHazards.get(wrongName).getHazardName());
+		assertNotEquals(description, gameHazards.get(wrongName).getHazardDescription());
+		assertNotEquals(damage, gameHazards.get(wrongName).getHazardDamageValue());
 	}
 }

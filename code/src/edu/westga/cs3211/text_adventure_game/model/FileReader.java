@@ -28,11 +28,6 @@ public class FileReader {
 
 	/**
 	 * FileReader Constructor
-	 * 
-	 * @param gameMapFile name of the game location file
-	 * @param hazardFile  name of the hazard file
-	 * @param npcFile     name of the NPC file
-	 * @param itemFile    name of the item file
 	 */
 	public FileReader() {
 		this.gameMapFile = "src/edu/westga/cs3211/text_adventure_game/assets/gameLocations.txt";
@@ -149,7 +144,7 @@ public class FileReader {
 		try (Scanner scanner = new Scanner(new File(this.gameMapFile))) {
 			while (scanner.hasNextLine()) {
 				String name = scanner.nextLine().trim();
-				if(name.isEmpty()) {
+				if (name.isEmpty()) {
 					continue;
 				}
 				

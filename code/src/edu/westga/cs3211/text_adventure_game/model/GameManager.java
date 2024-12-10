@@ -1,7 +1,6 @@
 package edu.westga.cs3211.text_adventure_game.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,8 +26,6 @@ public class GameManager {
 
 	/**
 	 * GameManager constructor.
-	 * 
-	 * @param gameFiles the FileReader instance containing game data
 	 */
 	public GameManager() {
 		this.player = new Player();
@@ -323,13 +320,13 @@ public class GameManager {
 		}
 	}
 	
-	 /**
-     * Handles dropping an item.
-     * 
-     * @param itemName the name of the item to drop
-     * @return drop result description
-     */
-    public String dropItem(String itemName) {
+	/**
+	 * Handles dropping an item.
+	 * 
+	 * @param itemName the name of the item to drop
+	 * @return drop result description
+	 */
+	public String dropItem(String itemName) {
         Item item = this.player.getInventory().getItem(itemName);
         if (item != null) {
             this.player.getInventory().removeItem(item);
@@ -348,10 +345,10 @@ public class GameManager {
     }
     
     private boolean isGem(String itemName) {
-        return itemName.equalsIgnoreCase("BlueGem") ||
-               itemName.equalsIgnoreCase("GreenGem") ||
-               itemName.equalsIgnoreCase("RedGem") ||
-               itemName.equalsIgnoreCase("WhiteGem");
+        return itemName.equalsIgnoreCase("BlueGem") 
+        		|| itemName.equalsIgnoreCase("GreenGem") 
+        		|| itemName.equalsIgnoreCase("RedGem") 
+        		|| itemName.equalsIgnoreCase("WhiteGem");
     }
     
     private String handleGemPlacement() {
@@ -382,12 +379,12 @@ public class GameManager {
 	}
 	
 	/**
-     * Handles picking up a specific item.
-     * 
-     * @param itemName the name of the item to pick up
-     * @return pick-up result description
-     */
-    public String pickUpItem(String itemName) {
+	 * Handles picking up a specific item.
+	 * 
+	 * @param itemName the name of the item to pick up
+	 * @return pick-up result description
+	 */
+	public String pickUpItem(String itemName) {
         if (!this.canPickUpItems) {
             return "You cannot pick up items now.";
         }
@@ -460,6 +457,4 @@ public class GameManager {
 			return "Game Over! You have no lives left.";
 		}
 	}
-
-
 }

@@ -178,7 +178,6 @@ public class MainWindow {
 				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/images/WhiteGem.jpg"));
 		this.swordImage.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/Images/Sword.jpg"));
 
-		this.initializeItemVisibility();
 	}
 
 	private void bindDisableItemToVisibility() {
@@ -189,15 +188,6 @@ public class MainWindow {
 		this.redGemImage.disableProperty().bind(Bindings.not(this.redGemImage.visibleProperty()));
 		this.whiteGemImage.disableProperty().bind(Bindings.not(this.whiteGemImage.visibleProperty()));
 		this.swordImage.disableProperty().bind(Bindings.not(this.swordImage.visibleProperty()));
-	}
-
-	private void initializeItemVisibility() {
-//		this.angelWingImage.setDisable(true);
-//		this.blueGemImage.setDisable(true);
-//		this.greenGemImage.setDisable(true);
-//		this.key.setDisable(true);
-//		this.redGemImage.setDisable(true);
-//		this.whiteGemImage.setDisable(true);
 	}
 
 	private void checkForWinOrGameOver(String result) {

@@ -39,13 +39,13 @@ public class WorldGenerator {
         Collections.shuffle(locations);
 
         int index = 0;
-        for (int i = 0; i < this.worldGrid.length; i++) {
-            for (int j = 0; j < this.worldGrid[i].length; j++) {
+        for (int rows = 0; rows < this.worldGrid.length; rows++) {
+            for (int coloumns = 0; coloumns < this.worldGrid[rows].length; coloumns++) {
                 if (index < locations.size()) {
-                	this.worldGrid[i][j] = locations.get(index);
+                	this.worldGrid[rows][coloumns] = locations.get(index);
                     index++;
                 } else {
-                	this.worldGrid[i][j] = null;
+                	this.worldGrid[rows][coloumns] = null;
                 }
             }
         }
@@ -53,50 +53,33 @@ public class WorldGenerator {
         this.setConnectedRooms();
     }
     
-    //TODO: Set up if statement due to inline conditionals cause checkstyle problem
-//    private void setConnectedRooms() {
-//		for (int i = 0; i < this.worldGrid.length; i++) {
-//			for (int j = 0; j < this.worldGrid[i].length; j++) {
-//				Location currentLocation = this.worldGrid[i][j];
-//		        if (currentLocation != null) {
-//		            String[] connectedRooms = new String[4]; 
-//		            connectedRooms[0] = (i > 0 && this.worldGrid[i - 1][j] != null) ? this.worldGrid[i - 1][j].getRoomName() : "";
-//		            connectedRooms[1] = (j < this.worldGrid[i].length - 1 && this.worldGrid[i][j + 1] != null) ? this.worldGrid[i][j + 1].getRoomName() : "";
-//		            connectedRooms[2] = (i < this.worldGrid.length - 1 && this.worldGrid[i + 1][j] != null) ? this.worldGrid[i + 1][j].getRoomName() : "";
-//		            connectedRooms[3] = (j > 0 && this.worldGrid[i][j - 1] != null) ? this.worldGrid[i][j - 1].getRoomName() : "";
-//		                currentLocation.setConnectedRooms(connectedRooms);
-//	            }
-//	        }
-//	    }
-//	}
-    
     private void setConnectedRooms() {
-        for (int i = 0; i < this.worldGrid.length; i++) {
-            for (int j = 0; j < this.worldGrid[i].length; j++) {
-                Location currentLocation = this.worldGrid[i][j];
+        for (int rows = 0; rows < this.worldGrid.length; rows++) {
+            for (int coloumns = 0; coloumns < this.worldGrid[rows].length; coloumns++) {
+                Location currentLocation = this.worldGrid[rows][coloumns];
                 if (currentLocation != null) {
                     String[] connectedRooms = new String[4];
 
-                    if (i > 0 && this.worldGrid[i - 1][j] != null) {
-                        connectedRooms[0] = this.worldGrid[i - 1][j].getRoomName();
+                    if (rows > 0 && this.worldGrid[rows - 1][coloumns] != null) {
+                        connectedRooms[0] = this.worldGrid[rows - 1][coloumns].getRoomName();
                     } else {
                         connectedRooms[0] = "";
                     }
 
-                    if (j < this.worldGrid[i].length - 1 && this.worldGrid[i][j + 1] != null) {
-                        connectedRooms[1] = this.worldGrid[i][j + 1].getRoomName();
+                    if (coloumns < this.worldGrid[rows].length - 1 && this.worldGrid[rows][coloumns + 1] != null) {
+                        connectedRooms[1] = this.worldGrid[rows][coloumns + 1].getRoomName();
                     } else {
                         connectedRooms[1] = "";
                     }
 
-                    if (i < this.worldGrid.length - 1 && this.worldGrid[i + 1][j] != null) {
-                        connectedRooms[2] = this.worldGrid[i + 1][j].getRoomName();
+                    if (rows < this.worldGrid.length - 1 && this.worldGrid[rows + 1][coloumns] != null) {
+                        connectedRooms[2] = this.worldGrid[rows + 1][coloumns].getRoomName();
                     } else {
                         connectedRooms[2] = "";
                     }
 
-                    if (j > 0 && this.worldGrid[i][j - 1] != null) {
-                        connectedRooms[3] = this.worldGrid[i][j - 1].getRoomName();
+                    if (coloumns > 0 && this.worldGrid[rows][coloumns - 1] != null) {
+                        connectedRooms[3] = this.worldGrid[rows][coloumns - 1].getRoomName();
                     } else {
                         connectedRooms[3] = "";
                     }

@@ -53,6 +53,14 @@ public class GameManager {
 	private void initializeGameManager() {
 		this.playerLocation = this.worldManager.getStartingLocation();
 	}
+	
+	public void setPlayerLocation(String name) {
+		this.playerLocation = this.worldManager.getGameLocations().get(name);
+	}
+	
+	public Location getPlayerLocation() {
+		return this.playerLocation;
+	}
 
 	/**
 	 * Retrieves the current room's description.
@@ -299,6 +307,9 @@ public class GameManager {
 				FriendlyNPC friendly = (FriendlyNPC) npc;
 				if (friendly.getName().equals("Angel")) {
 					return this.handleAngelInteraction(friendly);
+				} else if (friendly.getName().equals("Healer")) {
+					//TODO: handle healing player
+					return friendly.getDialogue();
 				}
 			}
 		}

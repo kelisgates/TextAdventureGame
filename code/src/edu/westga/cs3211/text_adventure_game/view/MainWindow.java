@@ -160,7 +160,6 @@ public class MainWindow {
 				return;
 			}
 			String result = this.viewModel.handleAction(action);
-			this.textAreaMainText.setText(result);
 			this.comboBoxAvailableActions.getSelectionModel().selectFirst();
 			this.checkForWinOrGameOver(result);
 		});

@@ -29,17 +29,16 @@ public class Location {
 	 * @param name           the name of the room
 	 * @param description1   the initial description
 	 * @param description2   the subsequent description
-	 * @param connectedRooms array of connected rooms
 	 * @param hazard         hazard in the room (can be null)
 	 * @param isGoal         whether this room is the goal
 	 */
-	public Location(String name, String description1, String description2, String[] connectedRooms, Hazard hazard,
+	public Location(String name, String description1, String description2, Hazard hazard,
 			boolean isGoal) {
 		this.roomName = name;
 		this.firstTimeEntry = true;
 		this.roomDescription1 = description1;
 		this.roomDescription2 = description2;
-		this.connectedRooms = connectedRooms;
+		this.connectedRooms = new String[4];
 		this.hazard = hazard;
 		this.isGoal = isGoal;
 		this.items = new ArrayList<Item>();
@@ -65,11 +64,12 @@ public class Location {
 	public String getRoomDescription() {
 		
 		if (this.firstTimeEntry) {
-			System.out.println("1 Room description accessed, firstTimeEntry: " + this.firstTimeEntry);
 			this.firstTimeEntry = false;
 			return this.roomDescription1;
 		} else {
-			System.out.println("2 Room description accessed, firstTimeEntry: " + this.firstTimeEntry);
+			if (!this.npcs.isEmpty()) {
+				return this.roomDescription1;
+			}
 			return this.roomDescription2;
 		}
 	}

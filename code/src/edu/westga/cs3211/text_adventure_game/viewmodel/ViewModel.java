@@ -89,17 +89,12 @@ public class ViewModel {
 	            break;
 
 	        case PICK_UP:
-	            String itemToPickUp = this.gameManager.pickUpItem(
-	                this.gameManager.getPlayerLocation().getItems().get(0).getItemName()
-	            );
-	            this.addAndUpdateLocationDescription(itemToPickUp);
+	            this.gameManager.pickUpItem(this.gameManager.getPlayerLocation().getItems().get(0).getItemName());
+	            
 	            break;
 
 	        case DROP:
-	            String itemToDrop = this.gameManager.dropItem(
-	                this.gameManager.getPlayer().getInventory().getItems().get(0).getItemName()
-	            );
-	            this.addAndUpdateLocationDescription(itemToDrop);
+	            this.gameManager.dropItem(this.gameManager.getPlayer().getInventory().getItems().get(0).getItemName());
 	            break;
 
 	        case FIGHT:
@@ -120,7 +115,7 @@ public class ViewModel {
 	}
 	
 	private void addAndUpdateLocationDescription(String text) {
-		this.getLocationDescriptionProperty().set(this.gameManager.getLocationDescription() + "\n" + text);
+		this.getLocationDescriptionProperty().set(this.gameManager.getLocationDescription() + "\n\n" + text);
 	}
 	
 	/**
@@ -131,7 +126,7 @@ public class ViewModel {
 	 */
 	public String dropItem(String itemName) {
 		String result = this.gameManager.dropItem(itemName);
-		this.updateLocationDescription();
+		this.addAndUpdateLocationDescription(result);
 		this.updateMovementDirection();
 		this.updatePlayerHealth();
 		this.updateItemVisibility();
@@ -151,16 +146,6 @@ public class ViewModel {
 		this.updatePlayerHealth();
 		this.updateItemVisibility();
 		return result;
-	}
-
-	private void gameOverorGoalddescription(String result) {
-		if (result.contains("Game Over")) {
-			this.isGameOver = true;
-		}
-
-		if (this.gameManager.checkForGoal()) {
-			this.isGameOver = true;
-		}
 	}
 
 	private void updateMovementDirection() {
@@ -183,6 +168,13 @@ public class ViewModel {
 		this.whiteGemVisible.set(this.gameManager.getPlayer().getInventory().getItem("WhiteGem") != null);
 		this.redGemVisible.set(this.gameManager.getPlayer().getInventory().getItem("RedGem") != null);
 		this.swordVisible.set(this.gameManager.getPlayer().getInventory().getItem("Sword") != null);
+	}
+	
+	/**
+	 * Prints the game world as a matrix.
+	 */
+	public void displayWorldMapInConsole() {
+		this.gameManager.displayWorldMap();
 	}
 
 	/**
@@ -291,5 +283,13 @@ public class ViewModel {
 	 */
 	public BooleanProperty getSwordVisibleProperty() {
 		return this.swordVisible;
+	}
+	
+	/**get game manager
+	 * 
+	 * @return gamemanager object
+	 */
+	public GameManager getGameManager() {
+		return this.gameManager;
 	}
 }

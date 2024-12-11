@@ -49,4 +49,24 @@ public class WorldManager {
 	public HashMap<String, Location> getGameLocations() {
 		return this.worldGenerator.getGameLocations();
 	}
+	
+	/**
+	 * Prints the game world as a matrix.
+	 */
+	public void printWorldGrid() {
+	    System.out.println("Game World Map:");
+	    Location[][] worldGrid = this.worldGenerator.getWorldGrid();
+
+	    for (int row = 0; row < worldGrid.length; row++) {
+	        for (int col = 0; col < worldGrid[row].length; col++) {
+	            if (worldGrid[row][col] != null) {
+	                System.out.print(worldGrid[row][col].getRoomName() + "\t");
+	            } else {
+	                System.out.print("Empty\t");
+	            }
+	        }
+	        System.out.println();
+	    }
+	}
+	
 }

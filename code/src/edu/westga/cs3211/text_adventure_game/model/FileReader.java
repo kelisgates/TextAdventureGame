@@ -150,13 +150,12 @@ public class FileReader {
 				
 				String description1 = scanner.nextLine();
 				String description2 = scanner.nextLine();
-				String[] connectedRooms = scanner.nextLine().split(",");
 				String hazardName = scanner.nextLine();
 				boolean isGoal = Boolean.parseBoolean(scanner.nextLine());
 
 				Hazard hazard = this.hazards.get(hazardName);
 
-				Location location = new Location(name, description1, description2, connectedRooms, hazard, isGoal);
+				Location location = new Location(name, description1, description2, hazard, isGoal);
 
 				if (name.equals("WeaponRoom")) {
 					location.addItem(this.items.get("Sword"));
@@ -166,7 +165,7 @@ public class FileReader {
 
 				this.addGemToLocation(name, location);
 				
-				 if (name.equals("GoalRoom")) {
+				 if (name.equals("HiddenRoom")) {
 		                location.addItem(this.items.get("Key"));
 		            }
 

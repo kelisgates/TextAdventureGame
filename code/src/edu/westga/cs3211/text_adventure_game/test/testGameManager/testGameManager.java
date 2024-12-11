@@ -117,4 +117,22 @@ public class testGameManager {
 		
 	}
 	
+	
+	@Test
+	public void testGameManagerAngelRoom() {
+		FileReader testRead = new FileReader("src/edu/westga/cs3211/text_adventure_game/assets/gameLocations.txt", 
+				"src/edu/westga/cs3211/text_adventure_game//assets/hazards.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/npcs.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/items.txt");
+		testRead.loadAllData();
+		
+		GameManager gameManager = new GameManager();
+		
+		gameManager.setPlayerLocation("AngelRoom");
+		String text = gameManager.getLocationDescription();
+		String result = gameManager.getPlayerLocation().getNpcs().get(0).getName();
+		assertEquals("Angel", result);
+		System.out.print(text);
+	}
+	
 }

@@ -76,6 +76,8 @@ public class MainWindow {
 		this.bindFields();
 		this.buttonListener();
 		this.loadItemImages();
+		
+		this.viewModel.displayWorldMapInConsole();
 	}
 
 	private void bindFields() {
@@ -94,50 +96,43 @@ public class MainWindow {
 	private void eventhandlerForDroppingItems() {
 		this.angelWingImage.setOnMouseClicked(event -> {
 			if (this.viewModel.getAngelWingsVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("AngelWings");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("AngelWings");
 			}
 		});
 
 		this.blueGemImage.setOnMouseClicked(event -> {
 			if (this.viewModel.getBlueGemVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("BlueGem");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("BlueGem");
 			}
 		});
 
 		this.greenGemImage.setOnMouseClicked(event -> {
 			if (this.viewModel.getGreenGemVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("GreenGem");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("GreenGem");
 			}
 		});
 
 		this.key.setOnMouseClicked(event -> {
 			if (this.viewModel.getKeyVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("Key");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("Key");
 			}
 		});
 
 		this.whiteGemImage.setOnMouseClicked(event -> {
 			if (this.viewModel.getWhiteGemVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("WhiteGem");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("WhiteGem");
 			}
 		});
 
 		this.redGemImage.setOnMouseClicked(event -> {
 			if (this.viewModel.getRedGemVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("RedGem");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("RedGem");
 			}
 		});
 
 		this.swordImage.setOnMouseClicked(event -> {
 			if (this.viewModel.getSwordVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("Sword");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("Sword");
 			}
 		});
 	}
@@ -167,7 +162,7 @@ public class MainWindow {
 
 	private void loadItemImages() {
 		this.angelWingImage
-				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/Images/AngelWings.jpg"));
+				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/Images/AngelWing.jpg"));
 		this.blueGemImage
 				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/Images/BlueGem.jpg"));
 		this.greenGemImage

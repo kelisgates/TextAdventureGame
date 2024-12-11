@@ -1,11 +1,9 @@
 package edu.westga.cs3211.text_adventure_game.model;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * World Generator Class to randomize the room locations
@@ -31,6 +29,15 @@ public class WorldGenerator {
         
         this.worldGrid = new Location[4][4];
         this.generateWorld();
+    }
+    
+    /**
+     * gets the world grid 
+     * 
+     * @return matrix of locations
+     */
+    public Location[][] getWorldGrid() {
+    	return this.worldGrid;
     }
 	
     /**

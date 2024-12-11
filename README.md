@@ -3,39 +3,20 @@
 Welcome to the Text Adventure Game!
 A simple text adventure game trying to be like the classic Zork. Who doesn't want to remake such a classic game? Here you move through a simple map trying to avoid hazards. In later implementations you just might be able to escape.
 
-Notes:
-The game is preset to the Game Map. For testing uncomment out the For Testing section and comment out the For Play section in the GameManager class.
+The player must move about the map collecting all of the gems from the enemies, but first it would be best to have a handy sword with you. After defeating the nasty enemies collect the gems they drop. One gem though you must get from the Angel. He wants his wings!
+Once you have all of the gems you must go to the XXXXX room. There you must place the gems in the correct order (Blue, Green, Red, White) to recieve the key to make your escape. Go to the Goal Room and use (drop) the key to reach your freedom.
 
-In the TestFileReader class you will notice three tests commented out. These were attempts to test the FileNotFoundException but it appears the try/catch handled those. I left the System.err print to console to happen as a precaution. These tests did cause them to happen but had a CheckStyle warning of "local variable not used".
+Movement
+North, East, South, and West
 
-Simple Walkthrough:
-Start - Move East
-Move South
-Move East - Goal
+Items
+Blue Gem, Green Gem, Red Gem, White Gem, Angel Wings, Key, Sword
 
-Hazards Can Be Found:
-1. Start - Move North
-Move West - Hazard (0 Damage)
+NPCs
+Dragon, Goblin, Wolf, Angel, Healer
 
-2. Start - Move South - Hazard
-
-3. Start - Move East
-Move South - Hazard
-
-4 & 5
-Start - Move East
-Move East - Hazard (0 Damage)
-Move North - Hazard (8 Damage)
-
-
-
-A map of both the dungeon for testing (dungeon02-testins.jpg) and play (dungeon03-final) purposes are located in the documentation folder. One version of the play map (dungeon03-final-edit.jpg) will have the locations for the 
+To "DROP" an item, click the image of the item.
 
 Eclipse
 --module-path "${eclipse_home}/javafx-sdk/lib"
 --add-modules javafx.controls,javafx.fxml
-
-
-Notes to self:
--Set up Location to have Hazard in place of the name.
--Set up Location as a digraph? Currently using a Hashmap.

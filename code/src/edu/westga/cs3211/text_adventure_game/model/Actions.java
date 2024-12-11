@@ -38,6 +38,17 @@ public enum Actions {
 	public int getIndexValue() {
 		return this.indexValue;
 	}
+	
+	/**
+	 * Returns a dynamic action string for a specific item.
+	 * 
+	 * @param baseAction the base action (e.g., "Drop")
+	 * @param itemName the name of the item
+	 * @return the dynamic action string
+	 */
+	public static String getDynamicAction(String baseAction, String itemName) {
+	    return baseAction + " " + itemName;
+	}
 
 	/**
 	 * Returns the proper String value to the index.

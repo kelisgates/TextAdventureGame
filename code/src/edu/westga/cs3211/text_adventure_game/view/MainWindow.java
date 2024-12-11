@@ -54,6 +54,9 @@ public class MainWindow {
 
 	@FXML
 	private Button buttonTakeAction;
+	
+	 @FXML
+	 private Label gameOverLabel;
 
 	@FXML
 	private ComboBox<Actions> comboBoxAvailableActions;
@@ -76,6 +79,8 @@ public class MainWindow {
 		this.bindFields();
 		this.buttonListener();
 		this.loadItemImages();
+		
+		this.viewModel.displayWorldMapInConsole();
 	}
 
 	private void bindFields() {
@@ -85,59 +90,64 @@ public class MainWindow {
 		this.labelHealth.textProperty().bind(this.viewModel.getPlayerHealthProperty());
 		this.viewModel.getSelectedDirection()
 				.bind(this.comboBoxAvailableActions.getSelectionModel().selectedItemProperty());
-
+		this.gameOverLabel.visibleProperty().bind(this.viewModel.getGameOverProperty());
 		this.bindItemVisibility();
 		this.bindDisableItemToVisibility();
 		this.eventhandlerForDroppingItems();
+		this.listenerForGameOver();
+	}
+
+	private void listenerForGameOver() {
+		 this.viewModel.getGameOverProperty().addListener((observable, oldValue, newValue) -> {
+		        if (newValue) { 
+		        	PauseTransition pause = new PauseTransition(Duration.seconds(4));
+					pause.setOnFinished(e -> Platform.exit());
+					pause.play();
+		        }
+		    });
+		
 	}
 
 	private void eventhandlerForDroppingItems() {
 		this.angelWingImage.setOnMouseClicked(event -> {
 			if (this.viewModel.getAngelWingsVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("AngelWings");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("AngelWings");
 			}
 		});
 
 		this.blueGemImage.setOnMouseClicked(event -> {
 			if (this.viewModel.getBlueGemVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("BlueGem");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("BlueGem");
 			}
 		});
 
 		this.greenGemImage.setOnMouseClicked(event -> {
 			if (this.viewModel.getGreenGemVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("GreenGem");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("GreenGem");
 			}
 		});
 
 		this.key.setOnMouseClicked(event -> {
 			if (this.viewModel.getKeyVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("Key");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("Key");
 			}
 		});
 
 		this.whiteGemImage.setOnMouseClicked(event -> {
 			if (this.viewModel.getWhiteGemVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("WhiteGem");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("WhiteGem");
 			}
 		});
 
 		this.redGemImage.setOnMouseClicked(event -> {
 			if (this.viewModel.getRedGemVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("RedGem");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("RedGem");
 			}
 		});
 
 		this.swordImage.setOnMouseClicked(event -> {
 			if (this.viewModel.getSwordVisibleProperty().get()) {
-				String result = this.viewModel.dropItem("Sword");
-				this.textAreaMainText.setText(result);
+				this.viewModel.dropItem("Sword");
 			}
 		});
 	}
@@ -159,15 +169,14 @@ public class MainWindow {
 				this.textAreaMainText.setText("Please select an action.");
 				return;
 			}
-			String result = this.viewModel.handleAction(action);
+			this.viewModel.handleAction(action);
 			this.comboBoxAvailableActions.getSelectionModel().selectFirst();
-			this.checkForWinOrGameOver(result);
 		});
 	}
 
 	private void loadItemImages() {
 		this.angelWingImage
-				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/Images/AngelWings.jpg"));
+				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/Images/AngelWing.jpg"));
 		this.blueGemImage
 				.setImage(new Image("file:src/edu/westga/cs3211/text_adventure_game/assets/Images/BlueGem.jpg"));
 		this.greenGemImage
@@ -190,17 +199,4 @@ public class MainWindow {
 		this.swordImage.disableProperty().bind(Bindings.not(this.swordImage.visibleProperty()));
 	}
 
-	private void checkForWinOrGameOver(String result) {
-		if (result.contains("Game Over")) {
-			PauseTransition pause = new PauseTransition(Duration.seconds(4));
-			pause.setOnFinished(e -> Platform.exit());
-			pause.play();
-		}
-
-		if (this.viewModel.getCheckForGoal()) {
-			PauseTransition pause = new PauseTransition(Duration.seconds(4));
-			pause.setOnFinished(e -> Platform.exit());
-			pause.play();
-		}
-	}
 }

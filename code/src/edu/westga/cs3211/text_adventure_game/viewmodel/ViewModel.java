@@ -28,7 +28,7 @@ public class ViewModel {
 	private ListProperty<Actions> movementDirection;
 	private StringProperty playerHealth;
 	private ObjectProperty<Actions> selectedDirection;
-	private Boolean isGameOver;
+	private BooleanProperty isGameOver;
 
 	private BooleanProperty angelWingsVisible;
 	private BooleanProperty blueGemVisible;
@@ -48,7 +48,7 @@ public class ViewModel {
 		this.movementDirection = new SimpleListProperty<>(FXCollections.observableArrayList(new ArrayList<>()));
 		this.playerHealth = new SimpleStringProperty();
 		this.selectedDirection = new SimpleObjectProperty<>();
-		this.isGameOver = false;
+		this.isGameOver = new SimpleBooleanProperty(false);
 
 		this.initializeItemVisibility();
 
@@ -89,17 +89,12 @@ public class ViewModel {
 	            break;
 
 	        case PICK_UP:
-	            String itemToPickUp = this.gameManager.pickUpItem(
-	                this.gameManager.getPlayerLocation().getItems().get(0).getItemName()
-	            );
-	            this.addAndUpdateLocationDescription(itemToPickUp);
+	            this.gameManager.pickUpItem(this.gameManager.getPlayerLocation().getItems().get(0).getItemName());
+	            
 	            break;
 
 	        case DROP:
-	            String itemToDrop = this.gameManager.dropItem(
-	                this.gameManager.getPlayer().getInventory().getItems().get(0).getItemName()
-	            );
-	            this.addAndUpdateLocationDescription(itemToDrop);
+	        	this.gameManager.dropItem(this.gameManager.getPlayer().getInventory().getItems().get(0).getItemName());
 	            break;
 
 	        case FIGHT:
@@ -114,13 +109,12 @@ public class ViewModel {
 	    this.updateMovementDirection();
 	    this.updatePlayerHealth();
 	    this.updateItemVisibility();
-	    //this.gameOverorGoalddescription(result);
 
 	    return result;
 	}
 	
 	private void addAndUpdateLocationDescription(String text) {
-		this.getLocationDescriptionProperty().set(this.gameManager.getLocationDescription() + "\n" + text);
+		this.getLocationDescriptionProperty().set(this.gameManager.getLocationDescription() + "\n\n" + text);
 	}
 	
 	/**
@@ -131,7 +125,10 @@ public class ViewModel {
 	 */
 	public String dropItem(String itemName) {
 		String result = this.gameManager.dropItem(itemName);
-		this.updateLocationDescription();
+		if (this.gameManager.getPlayerLocation().getRoomName().equals("GoalRoom") && itemName.equals("Key")) {
+    		this.isGameOver.set(true);
+    	}
+		this.addAndUpdateLocationDescription(result);
 		this.updateMovementDirection();
 		this.updatePlayerHealth();
 		this.updateItemVisibility();
@@ -153,16 +150,6 @@ public class ViewModel {
 		return result;
 	}
 
-	private void gameOverorGoalddescription(String result) {
-		if (result.contains("Game Over")) {
-			this.isGameOver = true;
-		}
-
-		if (this.gameManager.checkForGoal()) {
-			this.isGameOver = true;
-		}
-	}
-
 	private void updateMovementDirection() {
 		this.movementDirection.set(FXCollections.observableArrayList(this.gameManager.getActionOptions()));
 	}
@@ -173,6 +160,11 @@ public class ViewModel {
 
 	private void updatePlayerHealth() {
 		this.playerHealth.set(Integer.toString(this.gameManager.getPlayerHealth()));
+		int health = Integer.parseInt(this.playerHealth.get());
+		if (health <= 0) {
+			this.isGameOver.set(true);
+			this.addAndUpdateLocationDescription("You died");
+		}
 	}
 
 	private void updateItemVisibility() {
@@ -184,6 +176,13 @@ public class ViewModel {
 		this.redGemVisible.set(this.gameManager.getPlayer().getInventory().getItem("RedGem") != null);
 		this.swordVisible.set(this.gameManager.getPlayer().getInventory().getItem("Sword") != null);
 	}
+	
+	/**
+	 * Prints the game world as a matrix.
+	 */
+	public void displayWorldMapInConsole() {
+		this.gameManager.displayWorldMap();
+	}
 
 	/**
 	 * Gets the location description property.
@@ -192,6 +191,15 @@ public class ViewModel {
 	 */
 	public StringProperty getLocationDescriptionProperty() {
 		return this.locationDescription;
+	}
+	
+	/**
+	 * Gets game over property.
+	 * 
+	 * @return game over boolean
+	 */
+	public BooleanProperty getGameOverProperty() {
+		return this.isGameOver;
 	}
 
 	/**
@@ -227,9 +235,9 @@ public class ViewModel {
 	 * @return true if game is over, else false
 	 */
 	public Boolean getCheckForGoal() {
-		return this.isGameOver;
+		return this.isGameOver.getValue();
 	}
-
+	
 	/**
 	 * Gets the angelWingsVisibleProperty
 	 * 
@@ -291,5 +299,13 @@ public class ViewModel {
 	 */
 	public BooleanProperty getSwordVisibleProperty() {
 		return this.swordVisible;
+	}
+	
+	/**get game manager
+	 * 
+	 * @return gamemanager object
+	 */
+	public GameManager getGameManager() {
+		return this.gameManager;
 	}
 }

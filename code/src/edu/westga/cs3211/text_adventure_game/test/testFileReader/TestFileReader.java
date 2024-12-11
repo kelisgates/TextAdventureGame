@@ -1,14 +1,17 @@
 package edu.westga.cs3211.text_adventure_game.test.testFileReader;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashMap;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs3211.text_adventure_game.model.EnemyNPC;
 import edu.westga.cs3211.text_adventure_game.model.FileReader;
+import edu.westga.cs3211.text_adventure_game.model.FriendlyNPC;
 import edu.westga.cs3211.text_adventure_game.model.Item;
 import edu.westga.cs3211.text_adventure_game.model.Location;
 import edu.westga.cs3211.text_adventure_game.model.NPC;
@@ -40,7 +43,8 @@ public class TestFileReader {
 		String[] connectedRooms = new String[] {"AngelRoom", "WeaponRoom", "HealingRoom", "WolfRoom"};
 		
 		boolean isGoal = false;
-		Location callLocation = new Location(name, description1, description2, connectedRooms, null, isGoal);
+		Location callLocation = new Location(name, description1, description2, null, isGoal);
+		callLocation.setConnectedRooms(connectedRooms);
 		
 		assertEquals(callLocation.getRoomName(), gameLocations.get(name).getRoomName());
 		assertEquals(callLocation.getRoomDescription(), gameLocations.get(name).getRoomDescription());
@@ -64,10 +68,11 @@ public class TestFileReader {
 		String name = "Angel";
 		String description = "A radiant angel with a warm smile.";
 		String dialog = "\"Hey there player, I have a request to make. My wings were stolen by a dragon. Help find them for me, and I will reward you.\"";
+		FriendlyNPC loadedNPC = (FriendlyNPC) gameNPCs.get(name);
 		
-		assertEquals(name, gameNPCs.get(name).getName());
-		assertEquals(description, gameNPCs.get(name).getDescription());
-		assertEquals(dialog, gameNPCs.get(name).getDialogue());
+		assertEquals(name, loadedNPC.getName());
+		assertEquals(description, loadedNPC.getDescription());
+		assertEquals(dialog, loadedNPC.getDialogue());
 	}
 	
 	@Test
@@ -90,4 +95,43 @@ public class TestFileReader {
 		assertEquals(item.getItemName(), loadedNPC.getItemDrop().getItemName());
 		assertEquals(item.getDescription(), loadedNPC.getItemDrop().getDescription());
 	}
+	
+	 @Test
+	    public void testInvalidFilePath() {
+	        FileReader invalidReader = new FileReader("invalidGameMap.txt", "invalidHazard.txt", "invalidNPC.txt", "invalidItem.txt");
+
+	        assertDoesNotThrow(() -> invalidReader.loadAllData());
+
+	        assertTrue(invalidReader.getLocations().isEmpty());
+	        assertTrue(invalidReader.getHazards().isEmpty());
+	        assertTrue(invalidReader.getNPCs().isEmpty());
+	        assertTrue(invalidReader.getItems().isEmpty());
+	    }
+
+	    @Test
+	    public void testDefaultConstructorLoadsData() {
+	        FileReader defaultReader = new FileReader();
+
+	        assertNotNull(defaultReader.getLocations());
+	        assertNotNull(defaultReader.getHazards());
+	        assertNotNull(defaultReader.getNPCs());
+	        assertNotNull(defaultReader.getItems());
+	    }
+	    
+	    @Test
+	    public void testLoadAllData() {
+	    	FileReader testReader = new FileReader("src/edu/westga/cs3211/text_adventure_game/assets/gameLocations.txt", 
+					"src/edu/westga/cs3211/text_adventure_game//assets/hazards.txt",
+					"src/edu/westga/cs3211/text_adventure_game//assets/npcs.txt",
+					"src/edu/westga/cs3211/text_adventure_game//assets/items.txt");
+			
+	        testReader.loadAllData();
+
+	        assertNotNull(testReader.getLocations());
+	        assertNotNull(testReader.getHazards());
+	        assertNotNull(testReader.getNPCs());
+	        assertNotNull(testReader.getItems());
+	    }
+	    
+	    
 }

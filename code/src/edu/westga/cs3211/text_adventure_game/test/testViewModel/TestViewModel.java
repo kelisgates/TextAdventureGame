@@ -1,6 +1,20 @@
 package edu.westga.cs3211.text_adventure_game.test.testViewModel;
+import org.junit.jupiter.api.Test;
+
+import edu.westga.cs3211.text_adventure_game.model.Actions;
+import edu.westga.cs3211.text_adventure_game.viewmodel.ViewModel;
 
 public class TestViewModel {
+	
+	@Test
+	public void testFirstTimeInRoom() {
+		ViewModel view = new ViewModel();
+		view.displayWorldMapInConsole();
+		view.getGameManager().setPlayerLocation("WeaponRoom");
+		System.out.println(view.getGameManager().getPlayerLocation().getRoomName());
+		String result = view.handleAction(Actions.PICK_UP);
+		System.out.println(result);
+	}
 
 //	@Test
 //	public void testViewModelStartingDescription() {

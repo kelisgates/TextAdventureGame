@@ -22,7 +22,10 @@ public class GameManager {
 	private Location previousLocation;
 	private Set<String> defeatedEnemies;
 	private boolean canPickUpItems;
+	private boolean unlockedKey;
+	private boolean completedQuest;
 	private List<String> gemPlacementOrder;
+	private int gemCounter;
 
 	/**
 	 * GameManager constructor.
@@ -34,6 +37,9 @@ public class GameManager {
 		this.previousLocation = null;
 		this.defeatedEnemies = new HashSet<>();
 		this.canPickUpItems = true;
+		this.unlockedKey = false;
+		this.completedQuest = false;
+		this.gemCounter = 0;
 		this.gemPlacementOrder = new ArrayList<>();
 		this.initializeGameManager();
 	}
@@ -45,6 +51,15 @@ public class GameManager {
 	 */
 	public Player getPlayer() {
 		return this.player;
+	}
+	
+	/**
+	 * Gets if player can pick up item
+	 * 
+	 * @return bool if player can pick up item
+	 */
+	public boolean getCanPickUpItems() {
+		return this.canPickUpItems;
 	}
 	
 	/**
@@ -66,6 +81,13 @@ public class GameManager {
 	 */
 	public Location getPlayerLocation() {
 		return this.playerLocation;
+	}
+	
+	/**
+	 * Prints the game world as a matrix.
+	 */
+	public void displayWorldMap() {
+		this.worldManager.printWorldGrid();
 	}
 
 	/**
@@ -91,8 +113,14 @@ public class GameManager {
 		}
 		
 		this.appendNpcDescription(description);
-		this.appendItemDescription(description);
-
+		if (this.playerLocation.getNpcs().isEmpty()) {
+			this.appendItemDescription(description);
+		}
+		
+		if (this.gemCounter == 4) {
+			description.append("You have all required Gems, find the secret room.");
+		}
+		
 		return description.toString();
 	}
 	
@@ -102,13 +130,24 @@ public class GameManager {
 
 	private void appendItemDescription(StringBuilder description) {
 		for (Item item : this.playerLocation.getItems()) {
-			description.append("You see a ").append(item.getItemName()).append(" here.\n");
+			if (item.getItemName().equals("Key")) {
+				if (!this.unlockedKey) {
+					description.append("To get the key find all gems.");
+				} else {
+					description.append("You can use your key here.");
+				}
+			} else {
+				description.append("You see a ").append(item.getItemName()).append(" here. You can now pick it up. \n");
+			}
 		}
 	}
 
 	private void appendNpcDescription(StringBuilder description) {
 		for (NPC npc : this.playerLocation.getNpcs()) {
 			description.append(npc.getDescription()).append("\n");
+			if (this.completedQuest && this.playerLocation.getRoomName().equals("AngelRoom")) {
+				description.append("Here is a blue gem. Collect all the gems and place in hidden room. Remember BGRW.");
+			}
 		}
 	}
 
@@ -151,7 +190,7 @@ public class GameManager {
 			this.previousLocation = this.playerLocation;
 			this.playerLocation = this.worldManager.getGameLocations().get(nextRoomName);
 			this.canPickUpItems = false;
-		}
+			}
 
 		this.actionOptions.clear();
 	}
@@ -199,12 +238,40 @@ public class GameManager {
 	}
 
 	private void itemActions() {
+		
+		boolean hasUndefeatedEnemy = false;
+		boolean angelWingsReturned = false;
+		
+		for (NPC npc : this.playerLocation.getNpcs()) {
+	        if (npc instanceof EnemyNPC && !this.defeatedEnemies.contains(npc.getName())) {
+	            hasUndefeatedEnemy = true;
+	            break;
+	        }
+	    }
+		
+		if (this.playerLocation.getRoomName().equals("AngelRoom")) { 
+	        angelWingsReturned = false;
+	        for (Item item : this.playerLocation.getItems()) {
+	            if (item.getItemName().equalsIgnoreCase("AngelWings")) {
+	                angelWingsReturned = true;
+	                break;
+	            }
+	        }
+	    }
+		
 		if (!this.playerLocation.getItems().isEmpty()) {
 			this.actionOptions.add(Actions.PICK_UP);
 		}
-		if (!this.player.getInventory().getItems().isEmpty()) {
-			this.actionOptions.add(Actions.DROP);
+		if (this.playerLocation.getRoomName().equals("HiddenRoom") && !this.unlockedKey) {
+			this.actionOptions.remove(Actions.PICK_UP);
 		}
+		if (hasUndefeatedEnemy) {
+			this.actionOptions.remove(Actions.PICK_UP);
+		}
+		if (this.playerLocation.getRoomName().equals("AngelRoom") && !angelWingsReturned) {
+			this.actionOptions.remove(Actions.PICK_UP);
+		}
+		
 	}
 
 	private void npcInteraction() {
@@ -256,7 +323,7 @@ public class GameManager {
 		case SOUTH:
 		case WEST:
 			this.movePlayer(action);
-			return this.getLocationDescription();
+			return "test";
 		case FIGHT:
 			return this.handleFight();
 		case FLEE:
@@ -295,14 +362,11 @@ public class GameManager {
 				return "You attempted to throw a punch, but " + enemy.getName() + " was not phased." + "\n" + enemy.getDescription();
 			}
 				
-			if (this.player.getHealth() >= 8 && hasSword) {
+			if (this.player.getHealth() >= 0 && hasSword) {
 				this.playerLocation.removeNpc(enemy);
 				this.defeatedEnemies.add(npc.getName());
 				this.canPickUpItems = true;
 
-				if (enemy.getItemDrop() != null) {
-					this.playerLocation.addItem(enemy.getItemDrop());
-				}
 				return "You fought the " + enemy.getName() + " and won!";
 			} else {
 				return this.handlePlayerDeath();
@@ -373,6 +437,22 @@ public class GameManager {
         if (item != null) {
             this.player.getInventory().removeItem(item);
             this.playerLocation.addItem(item);
+            if (this.isGem(itemName)) {
+            	this.gemCounter -= 1;
+            }
+        }
+        
+        if (this.playerLocation.getRoomName().equals("AngelRoom")) {
+        	if (item.getItemName().equals("AngelWings")) {
+        		this.completedQuest = true;
+        		return "Thank you!";
+        	}
+        }
+        
+        if (this.playerLocation.getRoomName().equals("GoalRoom")) {
+        	if (item.getItemName().equals("Key")) {
+        		return "You used the key to enter the Goal Room. You win! Game Over";
+        	}
         }
         
         if (this.playerLocation.getRoomName().equals("HiddenRoom")) {
@@ -396,24 +476,40 @@ public class GameManager {
     private String handleGemPlacement() {
         List<String> correctOrder = List.of("BlueGem", "GreenGem", "RedGem", "WhiteGem");
         
+        StringBuilder placementDisplay = new StringBuilder("Current gem placement order: ");
+        for (String gem : this.gemPlacementOrder) {
+            placementDisplay.append(gem).append(" -> ");
+        }
+        if (placementDisplay.length() > 0) {
+            placementDisplay.setLength(placementDisplay.length() - 4);
+        }
+        
         if (this.gemPlacementOrder.size() == correctOrder.size() && this.gemPlacementOrder.equals(correctOrder)) {
+        	this.unlockedKey = true;
             Item key = this.handlePickupKey();
             if (key != null) {
                 this.playerLocation.addItem(key);
-                this.worldManager.getGameLocations().get("GoalRoom").removeItem(key);
-                return "You have placed all gems in the correct order! The Key is now available to pick up.";
+                return placementDisplay + " You have placed all gems in the correct order! The Key is now available to pick up.";
             } else {
                 return "Key is already placed.";
             }
-        } else if (!this.gemPlacementOrder.equals(correctOrder)) {
+        } else if (this.gemPlacementOrder.size() == correctOrder.size() && !this.gemPlacementOrder.equals(correctOrder)) {
+        	this.returnGemsToPlayerInventory();
             this.gemPlacementOrder.clear();
-            return "Incorrect gem placement order. Please try again.";
+            return placementDisplay +  " Incorrect gem placement order. Please try again.";
         }
-        return "Place all gems in the correct order to obtain the Key.";
+        return placementDisplay + " Place all gems in the correct order to obtain the Key.";
     }
 
+	private void returnGemsToPlayerInventory() {
+		for (String currGem: this.gemPlacementOrder) {
+			this.pickUpItem(currGem);
+		}
+		
+	}
+
 	private Item handlePickupKey() {
-		Item key = this.worldManager.getGameLocations().get("GoalRoom").getItem("Key");
+		Item key = this.worldManager.getGameLocations().get("HiddenRoom").getItem("Key");
 		return key;
 	}
 	
@@ -429,6 +525,9 @@ public class GameManager {
             this.player.getInventory().addItem(item);
             this.playerLocation.removeItem(item);
             this.canPickUpItems = false;
+            if (this.isGem(itemName)) {
+            	this.gemCounter += 1;
+            }
             return "You picked up the " + item.getItemName() + ".";
         }
         return "There is no " + itemName + " to pick up.";
@@ -440,10 +539,7 @@ public class GameManager {
 	 * @return pick-up result description
 	 */
 	private String handlePickUp() {
-		if (this.canPickUpItems && !this.playerLocation.getItems().isEmpty()) {
-			return "Please click on the item image to pick it up.";
-		}
-		return "No items to pick up.";
+		return "Picked Up Item.";
 	}
 	
 	 private String handleUseKey() {
@@ -485,6 +581,7 @@ public class GameManager {
 		if (this.player.hasLives()) {
 			this.player.resetHealth();
 			this.worldManager.shuffleWorld();
+			this.displayWorldMap();
 			this.playerLocation = this.worldManager.getStartingLocation();
 			this.previousLocation = null;
 			this.canPickUpItems = false;

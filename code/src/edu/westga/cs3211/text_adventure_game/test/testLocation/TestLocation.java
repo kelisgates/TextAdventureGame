@@ -38,7 +38,8 @@ public class TestLocation {
 		String descriptionTwo = "Entry room, dead center. 2";
 		String[] connectedRooms = new String[] {"TopCenter","CenterRight","BottomCenter","CenterLeft"};
 		boolean isGoal = false;
-		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, null, isGoal);
+		location.setConnectedRooms(connectedRooms);
 		
 		assertEquals(name, location.getRoomName());
 		assertEquals(descriptionOne, location.getRoomDescription());
@@ -57,7 +58,8 @@ public class TestLocation {
 		String[] connectedRooms = new String[] {"TopCenter","CenterRight","BottomCenter","CenterLeft"};
 		Hazard hazard = new Hazard("WolfHazard", "The wolf lunges at you with sharp teeth!", 4);
 		boolean isGoal = false;
-		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, hazard, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, hazard, isGoal);
+		location.setConnectedRooms(connectedRooms);
 		
 		assertEquals(name, location.getRoomName());
 		assertEquals(descriptionOne, location.getRoomDescription());
@@ -75,15 +77,12 @@ public class TestLocation {
 		String descriptionTwo = "Entry room, dead center. 2";
 		String[] connectedRooms = new String[] {"TopCenter","CenterRight","BottomCenter","CenterLeft"};
 		boolean isGoal = false;
-		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, null, isGoal);
+		location.setConnectedRooms(connectedRooms);
 		
 		assertEquals(name, gameLocations.get(name).getRoomName());
 		assertEquals(descriptionOne, gameLocations.get(name).getRoomDescription());
 		assertEquals(descriptionTwo, gameLocations.get(name).getRoomDescription());
-		assertEquals(connectedRooms[0], gameLocations.get(name).getConnectedRooms()[0]);
-		assertEquals(connectedRooms[1], gameLocations.get(name).getConnectedRooms()[1]);
-		assertEquals(connectedRooms[2], gameLocations.get(name).getConnectedRooms()[2]);
-		assertEquals(connectedRooms[3], gameLocations.get(name).getConnectedRooms()[3]);
 		assertEquals(false, gameLocations.get(name).hasHazard());
 		assertNull(location.getHazard());
 		assertEquals(isGoal, gameLocations.get(name).isGoal());
@@ -97,7 +96,8 @@ public class TestLocation {
 		String descriptionTwo = "Center left hallway. 2";
 		String[] connectedRooms = new String[] {"TopLeft","EntryRoom","BottomLeft",""};
 		boolean isGoal = true;
-		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, null, isGoal);
+		location.setConnectedRooms(connectedRooms);
 		
 		assertNotEquals(name, gameLocations.get(wrongName).getRoomName());
 		assertNotEquals(descriptionOne, gameLocations.get(wrongName).getRoomDescription());
@@ -116,9 +116,8 @@ public class TestLocation {
 		String name = "CenterLeft";
 		String descriptionOne = "Center left hallway.";
 		String descriptionTwo = "Center left hallway. 2";
-		String[] connectedRooms = new String[] {"TopLeft","EntryRoom","BottomLeft",""};
 		boolean isGoal = true;
-		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, null, isGoal);
 			
 		String itemName = "BlueGem";
 		String itemDescription = "A radiant blue gemstone.";
@@ -134,9 +133,8 @@ public class TestLocation {
 		String name = "CenterLeft";
 		String descriptionOne = "Center left hallway.";
 		String descriptionTwo = "Center left hallway. 2";
-		String[] connectedRooms = new String[] {"TopLeft","EntryRoom","BottomLeft",""};
 		boolean isGoal = true;
-		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, null, isGoal);
 			
 		String itemName1 = "BlueGem";
 		String itemDescription1 = "A radiant blue gemstone.";
@@ -159,9 +157,8 @@ public class TestLocation {
 		String name = "CenterLeft";
 		String descriptionOne = "Center left hallway.";
 		String descriptionTwo = "Center left hallway. 2";
-		String[] connectedRooms = new String[] {"TopLeft","EntryRoom","BottomLeft",""};
 		boolean isGoal = true;
-		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, null, isGoal);
 		
 		String itemName = "BlueGem";
 		String itemDescription = "A radiant blue gemstone.";
@@ -178,9 +175,8 @@ public class TestLocation {
 		String name = "CenterLeft";
 		String descriptionOne = "Center left hallway.";
 		String descriptionTwo = "Center left hallway. 2";
-		String[] connectedRooms = new String[] {"TopLeft","EntryRoom","BottomLeft",""};
 		boolean isGoal = true;
-		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, null, isGoal);
 		
 		String itemName1 = "BlueGem";
 		String itemDescription1 = "A radiant blue gemstone.";
@@ -201,9 +197,8 @@ public class TestLocation {
 		String name = "CenterLeft";
 		String descriptionOne = "Center left hallway.";
 		String descriptionTwo = "Center left hallway. 2";
-		String[] connectedRooms = new String[] {"TopLeft","EntryRoom","BottomLeft",""};
 		boolean isGoal = true;
-		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, null, isGoal);
 		
 		String itemName = "BlueGem";
 		String itemDescription = "A radiant blue gemstone.";
@@ -218,9 +213,8 @@ public class TestLocation {
 		String name = "CenterLeft";
 		String descriptionOne = "Center left hallway.";
 		String descriptionTwo = "Center left hallway. 2";
-		String[] connectedRooms = new String[] {"TopLeft","EntryRoom","BottomLeft",""};
 		boolean isGoal = true;
-		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, null, isGoal);
 		
 		String itemName = "BlueGem";
 		
@@ -232,9 +226,8 @@ public class TestLocation {
 		String name = "EntryRoom";
 		String descriptionOne = "Entry room, dead center.";
 		String descriptionTwo = "Entry room, dead center. 2";
-		String[] connectedRooms = new String[] {"TopCenter","CenterRight","BottomCenter","CenterLeft"};
 		boolean isGoal = false;
-		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, null, isGoal);
 		
 		String npcName = "Angel";
 		String npcDescription = "A radiant angel with a warm smile.";
@@ -250,9 +243,8 @@ public class TestLocation {
 		String name = "EntryRoom";
 		String descriptionOne = "Entry room, dead center.";
 		String descriptionTwo = "Entry room, dead center. 2";
-		String[] connectedRooms = new String[] {"TopCenter","CenterRight","BottomCenter","CenterLeft"};
 		boolean isGoal = false;
-		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, null, isGoal);
 		
 		String npcName = "Angel";
 		String npcDescription = "A radiant angel with a warm smile.";
@@ -271,9 +263,8 @@ public class TestLocation {
 		String name = "EntryRoom";
 		String descriptionOne = "Entry room, dead center.";
 		String descriptionTwo = "Entry room, dead center. 2";
-		String[] connectedRooms = new String[] {"TopCenter","CenterRight","BottomCenter","CenterLeft"};
 		boolean isGoal = false;
-		Location location = new Location(name, descriptionOne, descriptionTwo, connectedRooms, null, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, null, isGoal);
 		
 		String npcName = "Angel";
 		String npcDescription = "A radiant angel with a warm smile.";
@@ -295,9 +286,9 @@ public class TestLocation {
 		String name = "CenterLeft";
 		String descriptionOne = "Center left hallway.";
 		String descriptionTwo = "Center left hallway. 2";
-		String[] oldConnectedRooms = new String[] {"TopLeft","EntryRoom","BottomLeft","Blank"};
+		String[] oldConnectedRooms = new String[] {null,null,null,null};
 		boolean isGoal = true;
-		Location location = new Location(name, descriptionOne, descriptionTwo, oldConnectedRooms, null, isGoal);
+		Location location = new Location(name, descriptionOne, descriptionTwo, null, isGoal);
 		
 		String[] newConnectedRooms = new String[] {"NewLocation1","NewLocation2","NewLocation3","NewLocation4"};
 		

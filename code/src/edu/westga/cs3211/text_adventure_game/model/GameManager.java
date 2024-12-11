@@ -209,16 +209,6 @@ public class GameManager {
 
 		this.itemActions();
 
-		this.healingAction();
-
-		this.useKey();
-
-	}
-
-	private void useKey() {
-		if (this.player.getInventory().getItem("Key") != null) {
-			this.actionOptions.add(Actions.USE_KEY);
-		}
 	}
 
 	/**
@@ -229,12 +219,6 @@ public class GameManager {
 	public List<Actions> getActionOptions() {
 		this.generateActionList();
 		return this.actionOptions;
-	}
-
-	private void healingAction() {
-		if (this.playerLocation.getRoomName().equals("HealingRoom") && this.player.getHealth() < 10) {
-			this.actionOptions.add(Actions.HEAL);
-		}
 	}
 
 	private void itemActions() {
@@ -278,7 +262,6 @@ public class GameManager {
 		for (NPC npc : this.playerLocation.getNpcs()) {
 			if (npc instanceof EnemyNPC) {
 				this.actionOptions.add(Actions.FIGHT);
-				this.actionOptions.add(Actions.FLEE);
 				break;
 			} else if (npc instanceof FriendlyNPC) {
 				this.actionOptions.add(Actions.INTERACT);
@@ -326,18 +309,10 @@ public class GameManager {
 			return "test";
 		case FIGHT:
 			return this.handleFight();
-		case FLEE:
-			return this.handleFlee();
 		case INTERACT:
 			return this.handleInteraction();
 		case PICK_UP:
 			return this.handlePickUp();
-		case DROP:
-			return "Please click on the item image to drop it.";
-		case HEAL:
-			return this.handleHeal();
-		case USE_KEY:
-			return this.handleUseKey();
 		default:
 			return "Invalid action.";
 		}
@@ -374,21 +349,6 @@ public class GameManager {
 			
 		}
 		return "No enemy to fight.";
-	}
-
-	/**
-	 * Handles the flee action.
-	 * 
-	 * @return flee result description
-	 */
-	private String handleFlee() {
-		if (this.previousLocation != null) {
-			Location temp = this.playerLocation;
-			this.playerLocation = this.previousLocation;
-			this.previousLocation = temp;
-			return "You fled back to the previous room.";
-		}
-		return "There is nowhere to flee!";
 	}
 
 	/**
@@ -540,40 +500,6 @@ public class GameManager {
 	 */
 	private String handlePickUp() {
 		return "Picked Up Item.";
-	}
-	
-	 private String handleUseKey() {
-	        if (this.player.getInventory().getItem("Key") != null) {
-	            Location goalRoom = this.worldManager.getGameLocations().get("GoalRoom");
-	            String[] goalConnectedRooms = goalRoom.getConnectedRooms();
-	            boolean isAdjacent = false;
-	            for (String roomName : goalConnectedRooms) {
-	                if (roomName.equals(this.playerLocation.getRoomName())) {
-	                    isAdjacent = true;
-	                    break;
-	                }
-	            }
-	            if (isAdjacent) {
-	                this.playerLocation = goalRoom;
-	                return "You used the key to enter the Goal Room. You win!";
-	            } else {
-	                return "There is nothing to use the key on here.";
-	            }
-	        }
-	        return "You don't have the key to use.";
-	    }
-
-	/**
-	 * Handles healing in the HealingRoom.
-	 * 
-	 * @return heal result description
-	 */
-	private String handleHeal() {
-		if (this.player.getHealth() < 10) {
-			this.player.resetHealth();
-			return "You have been healed to full health.";
-		}
-		return "Your health is already full.";
 	}
 	
 	private String handlePlayerDeath() {

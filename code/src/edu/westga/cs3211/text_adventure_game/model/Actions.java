@@ -10,8 +10,7 @@ package edu.westga.cs3211.text_adventure_game.model;
  */
 public enum Actions {
 	NORTH("Move North", 0), EAST("Move East", 1), SOUTH("Move South", 2), WEST("Move West", 3), FIGHT("Fight", 4),
-	FLEE("Flee", 5), INTERACT("Interact", 6), HEAL("Heal", 7), PICK_UP("Pick Up", 8), DROP("Drop", 9),
-	USE_KEY("Use Key", 10);
+	INTERACT("Interact", 5), PICK_UP("Pick Up", 6);
 
 	private String action;
 	private int indexValue;

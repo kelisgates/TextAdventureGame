@@ -93,10 +93,6 @@ public class ViewModel {
 	            
 	            break;
 
-	        case DROP:
-	        	this.gameManager.dropItem(this.gameManager.getPlayer().getInventory().getItems().get(0).getItemName());
-	            break;
-
 	        case FIGHT:
 	            this.addAndUpdateLocationDescription(result);
 	            break;

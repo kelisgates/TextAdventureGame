@@ -28,7 +28,19 @@ public class WorldGenerator {
         this.gameLocations = this.fileReader.getLocations();
         
         this.worldGrid = new Location[4][4];
-        this.generateWorld();
+        this.generateWorld(true);
+    }
+    
+    /**
+     * Setter for gameLocations (used for testing)
+     * 
+     * @param gameLocations predefined game locations
+     * @param shuffle shuffles locations if true
+     */
+    public void setGameLocations(HashMap<String, Location> gameLocations, boolean shuffle) {
+        this.gameLocations = gameLocations;
+        this.worldGrid = new Location[4][4];
+        this.generateWorld(shuffle);
     }
     
     /**
@@ -42,10 +54,14 @@ public class WorldGenerator {
 	
     /**
      * Randomized the connected rooms
+     * 
+     * @param shuffleLocations if true shuffle locations (Mainly for test purposes)
      */
-    public void generateWorld() {
+    public void generateWorld(boolean shuffleLocations) {
         List<Location> locations = new ArrayList<>(this.gameLocations.values());
-        Collections.shuffle(locations);
+        if (shuffleLocations) {
+        	Collections.shuffle(locations);
+        }
         
         int index = 0;
         for (int rows = 0; rows < this.worldGrid.length; rows++) {
@@ -125,11 +141,21 @@ public class WorldGenerator {
     }
     
     /**
-     * Gets the game locations
-     * 
-     * @return gameLocations
+     * Prints the game world as a matrix.
      */
-    public HashMap<String, Location> getGameHazards() {
-        return this.gameLocations;
+    public void printWorldGrid() {
+    	System.out.println("Game World Map:");
+    	Location[][] worldGrid = this.getWorldGrid();
+
+    	for (int row = 0; row < worldGrid.length; row++) {
+    		for (int col = 0; col < worldGrid[row].length; col++) {
+    			if (worldGrid[row][col] != null) {
+    				System.out.print(worldGrid[row][col].getRoomName() + "\t");
+    			} else {
+    				System.out.print("Empty\t");
+    			}
+    		}
+    		System.out.println();
+    	}
     }
 }

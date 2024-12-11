@@ -38,7 +38,7 @@ public class WorldManager {
 	 * Shuffles the world layout.
 	 */
 	public void shuffleWorld() {
-		this.worldGenerator.generateWorld();
+		this.worldGenerator.generateWorld(true);
 	}
 
 	/**

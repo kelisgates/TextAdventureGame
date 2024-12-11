@@ -199,17 +199,4 @@ public class MainWindow {
 		this.swordImage.disableProperty().bind(Bindings.not(this.swordImage.visibleProperty()));
 	}
 
-	private void checkForWinOrGameOver(boolean result) {
-		if (result) {
-			PauseTransition pause = new PauseTransition(Duration.seconds(4));
-			pause.setOnFinished(e -> Platform.exit());
-			pause.play();
-		}
-
-		if (this.viewModel.getCheckForGoal()) {
-			PauseTransition pause = new PauseTransition(Duration.seconds(4));
-			pause.setOnFinished(e -> Platform.exit());
-			pause.play();
-		}
-	}
 }

@@ -4,8 +4,8 @@ There was a hole in the floor. You tripped.
 
 Arrow
 An arrow shots out of the wall and hits you.
-1
+3
 
 Gas
 A puff of gas hits you in the face.
-1
+2

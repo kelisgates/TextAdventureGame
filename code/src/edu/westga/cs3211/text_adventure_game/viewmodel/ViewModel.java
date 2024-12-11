@@ -28,7 +28,7 @@ public class ViewModel {
 	private ListProperty<Actions> movementDirection;
 	private StringProperty playerHealth;
 	private ObjectProperty<Actions> selectedDirection;
-	private Boolean isGameOver;
+	private BooleanProperty isGameOver;
 
 	private BooleanProperty angelWingsVisible;
 	private BooleanProperty blueGemVisible;
@@ -48,7 +48,7 @@ public class ViewModel {
 		this.movementDirection = new SimpleListProperty<>(FXCollections.observableArrayList(new ArrayList<>()));
 		this.playerHealth = new SimpleStringProperty();
 		this.selectedDirection = new SimpleObjectProperty<>();
-		this.isGameOver = false;
+		this.isGameOver = new SimpleBooleanProperty(false);
 
 		this.initializeItemVisibility();
 
@@ -94,7 +94,7 @@ public class ViewModel {
 	            break;
 
 	        case DROP:
-	            this.gameManager.dropItem(this.gameManager.getPlayer().getInventory().getItems().get(0).getItemName());
+	        	this.gameManager.dropItem(this.gameManager.getPlayer().getInventory().getItems().get(0).getItemName());
 	            break;
 
 	        case FIGHT:
@@ -109,7 +109,6 @@ public class ViewModel {
 	    this.updateMovementDirection();
 	    this.updatePlayerHealth();
 	    this.updateItemVisibility();
-	    //this.gameOverorGoalddescription(result);
 
 	    return result;
 	}
@@ -126,6 +125,9 @@ public class ViewModel {
 	 */
 	public String dropItem(String itemName) {
 		String result = this.gameManager.dropItem(itemName);
+		if (this.gameManager.getPlayerLocation().getRoomName().equals("GoalRoom") && itemName.equals("Key")) {
+    		this.isGameOver.set(true);
+    	}
 		this.addAndUpdateLocationDescription(result);
 		this.updateMovementDirection();
 		this.updatePlayerHealth();
@@ -158,6 +160,11 @@ public class ViewModel {
 
 	private void updatePlayerHealth() {
 		this.playerHealth.set(Integer.toString(this.gameManager.getPlayerHealth()));
+		int health = Integer.parseInt(this.playerHealth.get());
+		if (health <= 0) {
+			this.isGameOver.set(true);
+			this.addAndUpdateLocationDescription("You died");
+		}
 	}
 
 	private void updateItemVisibility() {
@@ -184,6 +191,15 @@ public class ViewModel {
 	 */
 	public StringProperty getLocationDescriptionProperty() {
 		return this.locationDescription;
+	}
+	
+	/**
+	 * Gets game over property.
+	 * 
+	 * @return game over boolean
+	 */
+	public BooleanProperty getGameOverProperty() {
+		return this.isGameOver;
 	}
 
 	/**
@@ -219,9 +235,9 @@ public class ViewModel {
 	 * @return true if game is over, else false
 	 */
 	public Boolean getCheckForGoal() {
-		return this.isGameOver;
+		return this.isGameOver.getValue();
 	}
-
+	
 	/**
 	 * Gets the angelWingsVisibleProperty
 	 * 

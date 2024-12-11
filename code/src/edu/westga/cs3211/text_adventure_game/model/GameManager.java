@@ -23,7 +23,9 @@ public class GameManager {
 	private Set<String> defeatedEnemies;
 	private boolean canPickUpItems;
 	private boolean unlockedKey;
+	private boolean completedQuest;
 	private List<String> gemPlacementOrder;
+	private int gemCounter;
 
 	/**
 	 * GameManager constructor.
@@ -36,6 +38,8 @@ public class GameManager {
 		this.defeatedEnemies = new HashSet<>();
 		this.canPickUpItems = true;
 		this.unlockedKey = false;
+		this.completedQuest = false;
+		this.gemCounter = 0;
 		this.gemPlacementOrder = new ArrayList<>();
 		this.initializeGameManager();
 	}
@@ -112,6 +116,11 @@ public class GameManager {
 		if (this.playerLocation.getNpcs().isEmpty()) {
 			this.appendItemDescription(description);
 		}
+		
+		if (this.gemCounter == 4) {
+			description.append("You have all required Gems, find the secret room.");
+		}
+		
 		return description.toString();
 	}
 	
@@ -123,12 +132,12 @@ public class GameManager {
 		for (Item item : this.playerLocation.getItems()) {
 			if (item.getItemName().equals("Key")) {
 				if (!this.unlockedKey) {
-					description.append("Must have key unlocked.");
+					description.append("To get the key find all gems.");
 				} else {
 					description.append("You can use your key here.");
 				}
 			} else {
-				description.append("You see a ").append(item.getItemName()).append(" here.\n");
+				description.append("You see a ").append(item.getItemName()).append(" here. You can now pick it up. \n");
 			}
 		}
 	}
@@ -136,6 +145,9 @@ public class GameManager {
 	private void appendNpcDescription(StringBuilder description) {
 		for (NPC npc : this.playerLocation.getNpcs()) {
 			description.append(npc.getDescription()).append("\n");
+			if (this.completedQuest && this.playerLocation.getRoomName().equals("AngelRoom")) {
+				description.append("Here is a blue gem. Collect all the gems and place in hidden room. Remember BGRW.");
+			}
 		}
 	}
 
@@ -249,9 +261,6 @@ public class GameManager {
 		
 		if (!this.playerLocation.getItems().isEmpty()) {
 			this.actionOptions.add(Actions.PICK_UP);
-		}
-		if (!this.player.getInventory().getItems().isEmpty()) {
-			this.actionOptions.add(Actions.DROP);
 		}
 		if (this.playerLocation.getRoomName().equals("HiddenRoom") && !this.unlockedKey) {
 			this.actionOptions.remove(Actions.PICK_UP);
@@ -428,11 +437,21 @@ public class GameManager {
         if (item != null) {
             this.player.getInventory().removeItem(item);
             this.playerLocation.addItem(item);
+            if (this.isGem(itemName)) {
+            	this.gemCounter -= 1;
+            }
+        }
+        
+        if (this.playerLocation.getRoomName().equals("AngelRoom")) {
+        	if (item.getItemName().equals("AngelWings")) {
+        		this.completedQuest = true;
+        		return "Thank you!";
+        	}
         }
         
         if (this.playerLocation.getRoomName().equals("GoalRoom")) {
         	if (item.getItemName().equals("Key")) {
-        		return "You used the key to enter the Goal Room. You win!";
+        		return "You used the key to enter the Goal Room. You win! Game Over";
         	}
         }
         
@@ -462,7 +481,6 @@ public class GameManager {
             placementDisplay.append(gem).append(" -> ");
         }
         if (placementDisplay.length() > 0) {
-            // Remove the trailing " -> "
             placementDisplay.setLength(placementDisplay.length() - 4);
         }
         
@@ -476,11 +494,19 @@ public class GameManager {
                 return "Key is already placed.";
             }
         } else if (this.gemPlacementOrder.size() == correctOrder.size() && !this.gemPlacementOrder.equals(correctOrder)) {
+        	this.returnGemsToPlayerInventory();
             this.gemPlacementOrder.clear();
             return placementDisplay +  " Incorrect gem placement order. Please try again.";
         }
         return placementDisplay + " Place all gems in the correct order to obtain the Key.";
     }
+
+	private void returnGemsToPlayerInventory() {
+		for (String currGem: this.gemPlacementOrder) {
+			this.pickUpItem(currGem);
+		}
+		
+	}
 
 	private Item handlePickupKey() {
 		Item key = this.worldManager.getGameLocations().get("HiddenRoom").getItem("Key");
@@ -499,6 +525,9 @@ public class GameManager {
             this.player.getInventory().addItem(item);
             this.playerLocation.removeItem(item);
             this.canPickUpItems = false;
+            if (this.isGem(itemName)) {
+            	this.gemCounter += 1;
+            }
             return "You picked up the " + item.getItemName() + ".";
         }
         return "There is no " + itemName + " to pick up.";

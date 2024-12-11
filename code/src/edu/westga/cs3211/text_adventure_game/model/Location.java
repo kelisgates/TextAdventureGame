@@ -67,7 +67,7 @@ public class Location {
 			this.firstTimeEntry = false;
 			return this.roomDescription1;
 		} else {
-			if (!this.npcs.isEmpty()) {
+			if (!this.npcs.isEmpty() && this.npcs.get(0) instanceof EnemyNPC) {
 				return this.roomDescription1;
 			}
 			return this.roomDescription2;

@@ -54,6 +54,9 @@ public class MainWindow {
 
 	@FXML
 	private Button buttonTakeAction;
+	
+	 @FXML
+	 private Label gameOverLabel;
 
 	@FXML
 	private ComboBox<Actions> comboBoxAvailableActions;
@@ -87,10 +90,22 @@ public class MainWindow {
 		this.labelHealth.textProperty().bind(this.viewModel.getPlayerHealthProperty());
 		this.viewModel.getSelectedDirection()
 				.bind(this.comboBoxAvailableActions.getSelectionModel().selectedItemProperty());
-
+		this.gameOverLabel.visibleProperty().bind(this.viewModel.getGameOverProperty());
 		this.bindItemVisibility();
 		this.bindDisableItemToVisibility();
 		this.eventhandlerForDroppingItems();
+		this.listenerForGameOver();
+	}
+
+	private void listenerForGameOver() {
+		 this.viewModel.getGameOverProperty().addListener((observable, oldValue, newValue) -> {
+		        if (newValue) { 
+		        	PauseTransition pause = new PauseTransition(Duration.seconds(4));
+					pause.setOnFinished(e -> Platform.exit());
+					pause.play();
+		        }
+		    });
+		
 	}
 
 	private void eventhandlerForDroppingItems() {
@@ -154,9 +169,8 @@ public class MainWindow {
 				this.textAreaMainText.setText("Please select an action.");
 				return;
 			}
-			String result = this.viewModel.handleAction(action);
+			this.viewModel.handleAction(action);
 			this.comboBoxAvailableActions.getSelectionModel().selectFirst();
-			this.checkForWinOrGameOver(result);
 		});
 	}
 
@@ -185,8 +199,8 @@ public class MainWindow {
 		this.swordImage.disableProperty().bind(Bindings.not(this.swordImage.visibleProperty()));
 	}
 
-	private void checkForWinOrGameOver(String result) {
-		if (result.contains("Game Over")) {
+	private void checkForWinOrGameOver(boolean result) {
+		if (result) {
 			PauseTransition pause = new PauseTransition(Duration.seconds(4));
 			pause.setOnFinished(e -> Platform.exit());
 			pause.play();

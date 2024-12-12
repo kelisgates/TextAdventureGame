@@ -304,4 +304,20 @@ public class TestLocation {
 		assertEquals(newConnectedRooms[2], location.getConnectedRooms()[2]);
 		assertEquals(newConnectedRooms[3], location.getConnectedRooms()[3]);
 	}
+	
+	@Test
+	public void testLocationRoomDescriptionNPCTest() {
+		FileReader testRead = new FileReader("src/edu/westga/cs3211/text_adventure_game/assets/gameLocations.txt", 
+				"src/edu/westga/cs3211/text_adventure_game//assets/hazards.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/npcs.txt",
+				"src/edu/westga/cs3211/text_adventure_game//assets/items.txt");
+		
+		testRead.loadAllData();
+		gameLocations = testRead.getLocations();
+		Location location = gameLocations.get("WolfRoom");
+		String description1 = location.getRoomDescription();
+		String description2 = location.getRoomDescription();
+		
+		assertEquals(description1, description2);
+	}
 }

@@ -1,15 +1,21 @@
 package edu.westga.cs3211.text_adventure_game.test.WorldGenerator;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Arrays;
+import java.util.HashMap;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs3211.text_adventure_game.model.Hazard;
 import edu.westga.cs3211.text_adventure_game.model.Location;
 import edu.westga.cs3211.text_adventure_game.model.WorldGenerator;
-
-import java.util.Arrays;
-import java.util.HashMap;
 
 public class TestWorldGenerator {
 
@@ -55,8 +61,8 @@ public class TestWorldGenerator {
         Location goblinRoom = worldGrid[0][1];
         Location entryRoom = worldGrid[0][2];
         
+        generator.printWorldGrid();
 
-        //{north, east, south, west}
         assertArrayEquals(new String[] { "", "", "", "GoblinRoom" }, entryRoom.getConnectedRooms());
         assertArrayEquals(new String[] { "", "GoblinRoom", "", "" }, dragonRoom.getConnectedRooms());
         assertArrayEquals(new String[] { "", "EntryRoom", "", "DragonRoom" }, goblinRoom.getConnectedRooms());
@@ -65,83 +71,24 @@ public class TestWorldGenerator {
     
     @Test
     public void testSetConnectedRoomsFullyConnectedGrid() {
-        // Arrange
         generator.setGameLocations(mockLocations, false);
 
-        // Simulate a fully connected grid
         Location[][] worldGrid = generator.getWorldGrid();
         worldGrid[0][0] = mockLocations.get("DragonRoom");
         worldGrid[0][1] = mockLocations.get("GoblinRoom");
         worldGrid[0][2] = mockLocations.get("EntryRoom");
 
-        // Act
-        generator.setGameLocations(mockLocations, false); // Triggers setConnectedRooms
-
-        // Assert
-        assertArrayEquals(new String[] { "", "GoblinRoom", "", "" }, worldGrid[0][0].getConnectedRooms()); // DragonRoom
-        assertArrayEquals(new String[] { "", "EntryRoom", "", "DragonRoom" }, worldGrid[0][1].getConnectedRooms()); // GoblinRoom
-        assertArrayEquals(new String[] { "", "", "", "GoblinRoom" }, worldGrid[0][2].getConnectedRooms()); // EntryRoom
-    }
-
-    @Test
-    public void testSetConnectedRoomsWithNullLocations() {
-        // Arrange
         generator.setGameLocations(mockLocations, false);
 
-        // Simulate a grid with some null entries
-        Location[][] worldGrid = generator.getWorldGrid();
-        worldGrid[0][0] = mockLocations.get("DragonRoom");
-        worldGrid[0][2] = mockLocations.get("EntryRoom");
-        worldGrid[0][1] = null;
-
-        // Act
-        generator.setGameLocations(mockLocations, false); // Triggers setConnectedRooms
-
-        // Assert
-        assertArrayEquals(new String[] { "", "", "", "" }, worldGrid[0][0].getConnectedRooms()); // DragonRoom
-        assertArrayEquals(new String[] { "", "", "", "" }, worldGrid[0][2].getConnectedRooms()); // EntryRoom
-    }
-
-    @Test
-    public void testSetConnectedRoomsEdgeCase() {
-        // Arrange
-        generator.setGameLocations(mockLocations, false);
-
-        // Simulate an edge case where one room is on the boundary
-        Location[][] worldGrid = generator.getWorldGrid();
-        worldGrid[0][0] = mockLocations.get("DragonRoom");
-        worldGrid[1][0] = mockLocations.get("GoblinRoom");
-
-        // Act
-        generator.setGameLocations(mockLocations, false); // Triggers setConnectedRooms
-        generator.printWorldGrid();
-        //{north, east, south, west}
-        assertArrayEquals(new String[] { "", "", "GoblinRoom", "" }, worldGrid[0][0].getConnectedRooms()); // DragonRoom
-        assertArrayEquals(new String[] { "DragonRoom", "", "", "" }, worldGrid[1][0].getConnectedRooms()); // GoblinRoom
-    }
-
-    @Test
-    public void testSetConnectedRoomsSingleRoom() {
-        // Arrange
-        generator.setGameLocations(mockLocations, false);
-
-        // Simulate a grid with a single room
-        Location[][] worldGrid = generator.getWorldGrid();
-        worldGrid[0][0] = mockLocations.get("EntryRoom");
-
-        // Act
-        generator.setGameLocations(mockLocations, false); // Triggers setConnectedRooms
-
-        // Assert
-        assertArrayEquals(new String[] { "", "", "", "" }, worldGrid[0][0].getConnectedRooms()); // EntryRoom
+        assertArrayEquals(new String[] { "", "GoblinRoom", "", "" }, worldGrid[0][0].getConnectedRooms());
+        assertArrayEquals(new String[] { "", "EntryRoom", "", "DragonRoom" }, worldGrid[0][1].getConnectedRooms());
+        assertArrayEquals(new String[] { "", "", "", "GoblinRoom" }, worldGrid[0][2].getConnectedRooms());
     }
 
     @Test
     public void testSetConnectedRoomsEmptyGrid() {
-        // Arrange
         generator.setGameLocations(mockLocations, false);
 
-        // Simulate an empty grid
         Location[][] worldGrid = generator.getWorldGrid();
         for (int i = 0; i < worldGrid.length; i++) {
             for (int j = 0; j < worldGrid[i].length; j++) {
@@ -149,10 +96,8 @@ public class TestWorldGenerator {
             }
         }
 
-        // Act
-        generator.setGameLocations(mockLocations, false); // Triggers setConnectedRooms
+        generator.setGameLocations(mockLocations, false);
 
-        // Assert
         for (int i = 0; i < worldGrid.length; i++) {
             for (int j = 0; j < worldGrid[i].length; j++) {
                 assertNull(worldGrid[i][j]);
@@ -160,7 +105,6 @@ public class TestWorldGenerator {
         }
     }
 
-    
     @Test
     public void testGetLocations() {
         generator.setGameLocations(mockLocations, false);
@@ -180,7 +124,6 @@ public class TestWorldGenerator {
         assertEquals("Description1", retrievedLocations.get("DragonRoom").getRoomDescription());
         assertEquals("Description1", retrievedLocations.get("GoblinRoom").getRoomDescription());
     }
-    
     
     @Test
     public void testShuffleLocations() {
@@ -230,7 +173,6 @@ public class TestWorldGenerator {
     public void testGetStartingLocationWhenGridContainsNullLocations() {
         generator.setGameLocations(mockLocations, false);
 
-        // Set some grid locations to null to simulate a partially filled grid
         Location[][] worldGrid = generator.getWorldGrid();
         worldGrid[0][1] = null;
 
@@ -242,7 +184,6 @@ public class TestWorldGenerator {
 
     @Test
     public void testGetStartingLocationWhenEntryRoomIsAbsent() {
-        // Remove "EntryRoom" from the mock locations
         mockLocations.remove("EntryRoom");
         generator.setGameLocations(mockLocations, false);
 

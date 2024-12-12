@@ -18,6 +18,15 @@ public class TestPlayer {
 	}
 	
 	@Test
+	public void testPlayerAddHealth() {
+		Player player = new Player();
+		
+		assertEquals(10, player.getHealth());
+		player.addHealth(2);
+		assertEquals(12, player.getHealth());
+	}
+	
+	@Test
 	public void playerHitDamangeHardcoded() {
 		Player newPlayer = new Player();
 		newPlayer.reduceHealth(2);

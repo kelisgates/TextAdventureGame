@@ -42,6 +42,8 @@ public class GameManager {
 		this.gemCounter = 0;
 		this.gemPlacementOrder = new ArrayList<>();
 		this.initializeGameManager();
+		
+		this.displayWorldMap();
 	}
 
 	/**
@@ -332,8 +334,13 @@ public class GameManager {
 				
 			boolean hasSword = this.player.getInventory().getItem("Sword") != null;
 				
-			if (!hasSword) {	
-				this.player.reduceHealth(enemy.getAttackDamage());	
+			if (this.player.getHealth() >= 0 && !hasSword) {	
+				this.player.reduceHealth(enemy.getAttackDamage());
+				
+				if (this.player.getHealth() <= 0) {
+					return this.handlePlayerDeath();
+				}
+				
 				return "You attempted to throw a punch, but " + enemy.getName() + " was not phased." + "\n" + enemy.getDescription();
 			}
 				
@@ -343,8 +350,6 @@ public class GameManager {
 				this.canPickUpItems = true;
 
 				return "You fought the " + enemy.getName() + " and won!";
-			} else {
-				return this.handlePlayerDeath();
 			}
 			
 		}

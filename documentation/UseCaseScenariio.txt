@@ -1,72 +1,46 @@
-Use case Scenario
+Use Case: Player Navigates Dungeon
 
-Context
-#Player is in the hall way {start location} of the dungeon.
+Context:
+	•	The player starts in a hallway (the start location) of the dungeon.
+	•	The world consists of interconnected locations, including hazard locations (which may contain NPCs) and at least one goal location.
 
-Primary Flow 
+Primary Flow
+	1.	User selects a move action.
+	2.	System checks the new location.
+	•	System does not detect any hazards/goal in the new location.
+	3.	System updates the player’s location.
+	4.	System displays the new location’s description.
+	5.	System identifies available actions based on the new location and player’s current status/inventory.
+	6.	System displays the available actions.
 
-1.	User selects a move action
-2.	System does not detect any hazards/goal in the new location
-3.	System updates players location
-4.	System displays new location description
-5.	System identifies available actions based on location and player status/inventory
-6.	System displays available actions
+Alternative Flows
 
+A: Player Enters Hazard Location
+	•	A.1: Player Survives Hazard
+A2. System detects a hazard in the new location.
+A3. System applies damage from the hazard to the player.
+A4. System updates the player’s health/status.
+A5. System checks that the player’s health is not depleted (player survives).
+A6. Return to Primary Flow step 3.
+	•	A.2: Player Dies from Hazard
+A2. System detects a hazard in the new location.
+A3. System applies damage from the hazard to the player.
+A4. System updates the player’s health/status.
+A5. System checks if the player’s health is depleted (player is dead).
+A6. System displays a “Game Over” message appropriate to the hazard/location.
+Use case ends.
 
-Alternative Flow
+B: Player Enters Goal Location
+B2. System detects a goal in the new location.
+B3. System checks if the player has the required item(s) (e.g., Black Key).
+	•	If the player does not have the required items:
+Return to Primary Flow step 5 (player can take other actions to obtain needed items).
+	•	If the player has the required items:
+B3a. System prompts the player to use the required item(s).
+B3b. System concludes the journey successfully, displaying a win screen.
+Use case ends with the player winning.
 
-#Player Enters Hazard location and engages NPC
-
-1.	System detects a hazard in the new location
-2.	system display available actions
-3.	System checks player inventory for weapon
-
-	#Player has Weapon
-	4-System updates available actions
-	5-System applies the damage from the NPC to the player
- 	6-System checks the player status is dead
-
-	#Player has limited health
-	7-Player dies {Is killed in battle}
-	8-Sytem checks player lifes left.
-
-		#Player has lifes.
-		a-Player is placed in entryroom with all inventory items
-		b-System displays a message saying player died.
-		c-System updates player lives
-
-		#Player has no lifes left.
-		-System display game over message
-	
-	#Player has enough health
-	7-Player kills NPC
-	8-NPC drops a gem stone.
-	9-System updates action to take
-
-	
-
-#Player Enters Hazard location and does not engage NPC
-1.	System detects a hazard in the new location
-2.	system display available actions
-3. 	Return to {#player has lifes -#-a}
-
-
-#Player enter goal location
-1.	System checks player inventory for all the necessary gem stone.
-
-	#Player doesn't have all gem stones
-	2-System display message telling user the gem stones they are missing.
-	#Player has all gem stones.
-	3-System ask player to enter gem stone.
-	4-Sytem checks if stones were entered in the right order.
-	
-		#Player doesn't enter gem stones in right order.
-		5-Return to {#Player enter goal location}-{4}
-		#Player entered gem stones in the right order.
-		System display a message telling the user they won
-
-	
-
-
-	
-
+C: Player Interacts with Friendly NPC (Optional Scenario)
+C2. System detects a friendly NPC in the new location.
+C3. System displays the NPC’s dialogue and available interaction options (e.g., accept quest, give item).
+C4. Proceed based on the player’s chosen interaction, then return to Primary Flow step 5 (to reassess available actions).

@@ -18,7 +18,7 @@ Dragon, Goblin, Wolf, Angel, Healer
 To "DROP" an item, click the image of the item.
 
 Notes:
-- Must have JavaFX installed.
+- Jar files for JavaFX are now included in the repository.
 
 Eclipse - Run COnfigurations -> VM arguments:
 --module-path "${eclipse_home}/javafx-sdk/lib"

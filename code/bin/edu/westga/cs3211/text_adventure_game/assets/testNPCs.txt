@@ -1,0 +1,11 @@
+Friendly
+Angel
+A radiant angel with a warm smile.
+"Hey there player, I have a request to make. My wings were stolen by a dragon. Help find them for me, and I will reward you."
+
+Enemy
+Dragon
+A fearsome dragon with scales like armor.
+The dragon roars and prepares to attack!
+7
+AngelWings

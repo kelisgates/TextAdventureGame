@@ -1,0 +1,95 @@
+EntryRoom
+You are in the hallway. It's dimly lit and eerie.
+You are back in the hallway.
+none
+false
+
+AngelRoom
+You enter a serene room bathed in light. An angel stands before you.
+The angel awaits your return.
+none
+false
+
+DragonRoom
+You enter the dragon's lair. The dragon eyes you warily.
+The dragon is still here, guarding something.
+none
+false
+
+HiddenRoom
+A secret room revealed after collecting all gems.
+You are back in the hidden room.
+none
+false
+
+HealingRoom
+A soothing aura fills the room. A healer stands ready to aid you.
+The healer smiles at you.
+none
+false
+
+WeaponRoom
+An old armory with weapons scattered about.
+You are back in the weapon room.
+none
+false
+
+WolfRoom
+A wolf snarls at you from the shadows.
+The wolf's body lies still.
+none
+false
+
+GoblinRoom
+A goblin blocks your path, brandishing a crude weapon.
+The goblin is defeated.
+none
+false
+
+GoalRoom
+The final room. A grand door stands before you.
+You are back in the goal room.
+none
+true
+
+Hall01
+You are in a long, narrow hallway. The faint echo of footsteps fills the air, though you seem to be alone.
+You are back in Hall01
+none
+false
+
+Hall02
+This hallway feels more oppressive, with gas seeping from cracks in the walls. You need to move carefully here.
+You are back in Hall02
+Gas
+false
+
+Hall03
+A wider hallway with ornate carvings on the walls. They depict battles and triumphs of old.
+You are back in Hall03
+none
+false
+
+Hall04
+This hallway is connected to multiple paths, with faint growls echoing from some of the rooms, the floor seems unstable.
+You are back in Hall04
+Pothole
+false
+
+Hall05
+A corridor with faint whispers emanating from the shadows.
+You are back in Hall05
+none
+false
+
+Hall06
+A dimly lit hallway with an arrow symbol etched into the ground.
+You are back in Hall06
+Arrow
+false
+
+Hall07
+The air grows heavier as you traverse this hallway.
+You are back in Hall07
+none
+false

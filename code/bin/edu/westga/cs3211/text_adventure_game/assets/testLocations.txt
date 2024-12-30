@@ -1,0 +1,53 @@
+EntryRoom
+Entry room, dead center.
+Entry room, dead center. 2
+none
+false
+
+CenterLeft
+Center left hallway.
+Center left hallway. 2
+none
+true
+
+CenterRight
+Center right hallway.
+Center right hallway. 2
+none
+false
+
+TopLeft
+Top left room.
+Top left room. 2
+DragonHazard
+false
+
+TopCenter
+Top center hallway.
+Top center hallway. 2
+none
+false
+
+TopRight
+Top right room.
+Top right room. 2
+none
+false
+
+BottomLeft
+Bottom left room.
+Bottom left room. 2
+WolfHazard
+false
+
+BottomCenter
+Bottom center hallway.
+Bottom center hallway. 2
+none
+false
+
+BottomRight
+Bottom right room.
+Bottom right room. 2
+none
+false
